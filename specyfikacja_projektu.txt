@@ -1,0 +1,14 @@
+Strona z prostymi grami online
+
+Projekt ma na celu stworzenie strony umożliwiającej użytkownikom granie online w proste gry, np. Snake.
+
+>logowanie i rejestracja
+>lista gier, opisy i zrzuty ekranu dostępne dla wszystkich
+>tylko zalogowani użytkownicy mogą grać w gry dostępne na stronie
+>gracze mają możliwość oceniania pozycji, w które zagrali
+>system komentarzy moderowanych przez administratora
+>zapisywanie najlepszych wyników, rywalizacja między użytkownikami
+>ranking popularności gier
+>użytkownicy mogą oznaczać gry jako swoje ulubione (szybki dostęp po zalogowaniu)
+>dodawanie innych graczy do znajomych w celu bezpośredniego porównywania wyników
+
