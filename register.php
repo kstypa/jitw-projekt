@@ -3,14 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Rejestracja - Gierki</title>
-
-    <style>
-      body {
-        font-size:14px;
-        font-family:Tahoma;
-        line-height:1.6;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css">
   </head>
 
   <body>
@@ -59,6 +52,8 @@
     	else echo "Podany login jest już zajęty.";
     }
     ?>
+
+    <br><a href="index.php">Wróć do strony głównej</a>
 
     <?php mysql_close(); ?>
   </body>
