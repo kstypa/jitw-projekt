@@ -16,9 +16,10 @@
 	</head>
 
 	<body>
-		<div class="navbar">
 
-		</div>
+		<?php include "navbar.html"; ?>
+
+
 		<div class="container-fluid col-md-8 main">
 			<h1>Gierki</h1>
 
