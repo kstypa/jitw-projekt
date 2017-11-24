@@ -90,7 +90,7 @@
 						<h2>Logowanie</h2>
 					  <div class="form-group">
 					    <label for="login">Nazwa użytkownika</label>
-					    <input type="text" class="form-control" name="login" aria-describedby="loginHelp" placeholder="Podaj swój login">
+					    <input type="text" class="form-control" name="login" placeholder="Podaj swój login">
 					  </div>
 					  <div class="form-group">
 					    <label for="password">Hasło</label>

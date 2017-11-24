@@ -20,7 +20,7 @@
         <h2>Rejestracja</h2><br>
         <div class="form-group">
           <label for="login">Nazwa użytkownika</label>
-          <input type="text" class="form-control" name="login" aria-describedby="loginHelp" placeholder="Podaj swój login">
+          <input type="text" class="form-control" name="login" placeholder="Podaj swój login">
         </div>
         <div class="form-group">
           <label for="password1">Hasło</label>
