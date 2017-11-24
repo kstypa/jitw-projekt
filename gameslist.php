@@ -21,12 +21,28 @@
 
 		<div class="container-fluid col-md-8 main">
 
+			<?php
+			$rating = [0, 0, 0, 0];
+			for ($i = 0; $i < 4; ++$i) {
+				$rating_query = "SELECT rating FROM ratings WHERE game_id = $i+1";
+	      $rating_result = mysql_query($rating_query);
+				$sum = 0;
+				$n = 0;
+	      while($row = mysql_fetch_assoc($rating_result)) {
+	        ++$n;
+					$sum += $row['rating'];
+	      }
+				$rating[$i] = $sum / $n;
+			}
+
+			?>
+
       <h1>Lista gier</h1>
       <ul>
-        <li><a href="snake.php">Snake</a></li>
-        <li><a href="">Wisielec</a></li>
-        <li><a href="">Space Invaders</a></li>
-        <li><a href="">Arkanoid</a></li>
+        <li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo $rating[0] ?></li>
+        <li><a href="">Wisielec</a> ocena użytkowników: <?php echo $rating[1] ?></li>
+        <li><a href="">Space Invaders</a> ocena użytkowników: <?php echo $rating[2] ?></li>
+        <li><a href="">Arkanoid</a> ocena użytkowników: <?php echo $rating[3] ?></li>
       </ul>
 
 
