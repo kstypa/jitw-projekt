@@ -21,6 +21,9 @@
 
 		<div class="container-fluid col-md-8 main">
 			<?php
+
+			$loginmessage = "";
+
 			if (isset($_GET['logout']))
 			{
 				unset($_SESSION['loggedin']);
@@ -53,7 +56,8 @@
 					$_SESSION['group_id'] = $row['group_id'];
 
 				}
-				else echo "Wpisany login i/lub hasło są niepoprawne.";
+				// else echo "Wpisany login i/lub hasło są niepoprawne.";
+				else $loginmessage = "<br>Wpisany login i/lub hasło są niepoprawne.";
 			}
 
 			if(isset($_SESSION['loggedin'])) {
@@ -64,8 +68,9 @@
 					<br>
 
 					<ul><li><a href="./gameslist.php">Lista gier</a></li>
-					<li><a href="">Ranking popularności gier</a></li>
 					<li><a href="./highscores.php">Najlepsi gracze</a></li>
+					<li><a href="">Ranking popularności gier</a></li>
+					<li><a href="">Profil</a></li>
 					<li><a href="">Znajomi</a></li></ul><br>';
 
 					if($_SESSION['group_id'] == 1) {
@@ -97,9 +102,9 @@
 					    <input type="password" class="form-control" name="password" placeholder="Hasło">
 					  </div>
 					  <button type="submit" class="btn btn-primary" name="signin">Zaloguj się</button>
-					</form>
+					</form>'.$loginmessage.'
 
-					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
+					<br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
 					';
 			}
 			?>
