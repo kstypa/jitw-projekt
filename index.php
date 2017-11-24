@@ -19,74 +19,84 @@
 
 		<?php include "navbar.html"; ?>
 
-
 		<div class="container-fluid col-md-8 main">
-			<h1>Gierki</h1>
-
 			<?php
-			if (isset($_GET['wyloguj']))
+			if (isset($_GET['logout']))
 			{
-				unset($_SESSION['zalogowany']);
+				unset($_SESSION['loggedin']);
 				session_destroy();
 			}
 
-			function filtruj($zmienna)
+			function filter($var)
 			{
 			    if(get_magic_quotes_gpc())
-			        $zmienna = stripslashes($zmienna);
-			    return mysql_real_escape_string(htmlspecialchars(trim($zmienna)));
+			        $var = stripslashes($var);
+			    return mysql_real_escape_string(htmlspecialchars(trim($var)));
 			}
 
-			if (isset($_POST['loguj']))
+			if (isset($_POST['signin']))
 			{
-				$login = filtruj($_POST['login']);
-				$haslo = filtruj($_POST['haslo']);
-				$ip = filtruj($_SERVER['REMOTE_ADDR']);
+				$login = filter($_POST['login']);
+				$password = filter($_POST['password']);
+				$ip = filter($_SERVER['REMOTE_ADDR']);
 
-				if (mysql_num_rows(mysql_query("SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".md5($haslo)."';")) > 0)
+				if (mysql_num_rows(mysql_query("SELECT login, password FROM users WHERE login = '".$login."' AND password = '".md5($password)."';")) > 0)
 				{
-					mysql_query("UPDATE `uzytkownicy` SET (`logowanie` = '".time().", `ip` = '".$ip."'') WHERE login = '".$login."';");
+					mysql_query("UPDATE `users` SET (`last_login` = '".time().", `ip` = '".$ip."'') WHERE login = '".$login."';");
 
-					$_SESSION['zalogowany'] = true;
+					$group_id_query = "SELECT group_id FROM users WHERE login = '".$login."' limit 1;";
+					$gid_result = mysql_query($group_id_query);
+					$row = mysql_fetch_assoc($gid_result);
+
+					$_SESSION['loggedin'] = true;
 					$_SESSION['login'] = $login;
+					$_SESSION['group_id'] = $row['group_id'];
 
 				}
 				else echo "Wpisany login i/lub hasło są niepoprawne.";
 			}
 
-			if(isset($_SESSION['zalogowany'])) {
-				if ($_SESSION['zalogowany'])
+			if(isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin'])
 				{
 					echo '
-					Witaj <b>'.$_SESSION['login'].'</b><br>
+					<h1>Witaj, '.$_SESSION['login'].'!</h1>
+					<br>
 
-					<ul><li><a href="">Lista gier</a></li>
+					<ul><li><a href="./gameslist.php">Lista gier</a></li>
 					<li><a href="">Ranking popularności gier</a></li>
-					<li><a href="">Najlepsi gracze</a></li>
+					<li><a href="./highscores.php">Najlepsi gracze</a></li>
 					<li><a href="">Znajomi</a></li></ul><br>';
 
-					if($_SESSION['login'] == "admin") {
+					if($_SESSION['group_id'] == 1) {
 						echo '<a href="./admin.php">Panel administracyjny</a><br>';
 					}
 
-					echo '<a href="?wyloguj=1">[Wyloguj]</a>';
+					echo '<a class="btn btn-primary" href="?logout=1">Wyloguj się</a><br>';
 				}
 			}
 
-			if (!isset($_SESSION['zalogowany'])){
+			if (!isset($_SESSION['loggedin'])){
 					echo '
+					<h1>Witaj, gościu!</h1>
 					<p>W tej chwili jako niezalogowany użytkownik możesz:</p>
 					<ul>
-						<li><a href="#1">Przeglądać listę gier wraz z ich opisami</a></li>
-						<li><a href="#2">Sprawdzić, które gry są najpopularniejsze</a></li>
-						<li><a href="#3">Zobaczyć ranking najlepszych graczy</a></li>
+						<li><a href="./gameslist.php">Przeglądać listę gier wraz z ich opisami</a></li>
+						<li><a href="">Sprawdzić, które gry są najpopularniejsze</a></li>
+						<li><a href="./highscores.php">Zobaczyć ranking najlepszych graczy</a></li>
 					</ul>
 
-					<form action="index.php" method="POST">
+					<form class="col-md-4" action="index.php" method="POST">
 						<h2>Logowanie</h2>
-						<b>Login:</b> <input type="text" name="login"><br>
-						<b>Hasło:</b> <input type="password" name="haslo"><br><br>
-						<input type="submit" value="Zaloguj" name="loguj">
+					  <div class="form-group">
+					    <label for="login">Nazwa użytkownika</label>
+					    <input type="text" class="form-control" name="login" aria-describedby="loginHelp" placeholder="Podaj swój login">
+					  </div>
+					  <div class="form-group">
+					    <label for="password">Hasło</label>
+					    <input type="password" class="form-control" name="password" placeholder="Hasło">
+					  </div>
+					  <button type="submit" class="btn btn-primary" name="signin">Zaloguj się</button>
 					</form>
 
 					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
@@ -94,7 +104,6 @@
 			}
 			?>
 		</div>
-
 
 		<?php mysql_close(); ?>
 	</body>
