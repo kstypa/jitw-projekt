@@ -38,7 +38,35 @@
 
       <br>
       <h3>Komentarze</h3><br>
+
       <?php
+
+			if(isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin'])
+				{
+					echo '
+					<form class="col-md-12" action="snake.php" method="post">
+						<h5>Dodaj komentarz</h5>
+						<div class="form-group">
+							<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
+					</form>';
+					if(isset($_POST['send_comment'])) {
+						// echo $_POST['comment_text'].'<br>';
+						// echo $_SESSION['login'].'<br>';
+						$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+						$user_id = mysql_fetch_assoc($user_result);
+						// echo $user_id['id'];
+						$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`) VALUES (1, .$user_id['id']., '.$_POST['comment_text'].');");
+					}
+				}
+			}
+
+			if (!isset($_SESSION['loggedin'])){
+					echo '<a href="index.php">Zaloguj się by dodać komentarz</a>
+					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br>';
+			}
 
       $comments_query = "SELECT A.timestamp, A.text, B.login as username
                           FROM comments A
