@@ -37,7 +37,7 @@
 			?>
 
       <br>
-      <h3>Komentarze</h3><br>
+      <h3>Komentarze</h3>
 
       <?php
 
@@ -58,7 +58,9 @@
 						$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
 						$user_id = mysql_fetch_assoc($user_result);
 						// echo $user_id['id'];
-						$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`) VALUES (1, .$user_id['id']., '.$_POST['comment_text'].');");
+						$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
+																		VALUES (1, ".$user_id['id'].", '".$_POST['comment_text']."');";
+						$add_com_result = mysql_query($add_comment_query);
 					}
 				}
 			}
@@ -68,6 +70,7 @@
 					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br>';
 			}
 
+			echo "<br>";
       $comments_query = "SELECT A.timestamp, A.text, B.login as username
                           FROM comments A
                           Join users B
