@@ -54,13 +54,23 @@
 								</form>
 								<br>';
 					if (isset($_POST['rating'])) {
-						echo $_POST['rating'];
+						// echo $_POST['rating'];
 
 						$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
 						$rating_select_result = mysql_query($rating_select_query);
-						while($row = mysql_fetch_assoc($rating_select_result)) {
-			        // echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br><br>';
+						if($row = mysql_fetch_assoc($rating_select_result)) {
+			        // echo '<br>rating: '.$row['game_id'].' '.$row['user_id'].' '.$row['rating'].', update';
+							$rating_update_query = "UPDATE `ratings`
+																			SET `rating` = ".$_POST['rating']."
+																			WHERE `game_id` = 1 AND `user_id` = ".$user_id['id'].";";
+							$rating_update_result = mysql_query($rating_update_query);
 			      }
+						else {
+							// echo '<br>nie znaleziono ratingu, insert';
+							$rating_insert_query = "INSERT INTO `ratings` (`game_id`, `user_id`, `rating`)
+																			VALUES (1, ".$user_id['id'].", '".$_POST['rating']."');";
+							$rating_insert_result = mysql_query($rating_insert_query);
+						}
 					}
 				}
 			}
