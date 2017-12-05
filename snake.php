@@ -36,8 +36,38 @@
 			}
 			?>
 
+			<?php
+			if (isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin']) {
+					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+					$user_id = mysql_fetch_assoc($user_result);
+
+					echo '<h3>Oceń grę</h3>
+								<form action="snake.php" method="post">
+									<div class="btn-group" role="group">
+											<button type="submit" name="rating" value=1 class="btn btn-primary">1</button>
+											<button type="submit" name="rating" value=2 class="btn btn-primary">2</button>
+											<button type="submit" name="rating" value=3 class="btn btn-primary">3</button>
+											<button type="submit" name="rating" value=4 class="btn btn-primary">4</button>
+											<button type="submit" name="rating" value=5 class="btn btn-primary">5</button>
+									</div>
+								</form>
+								<br>';
+					if (isset($_POST['rating'])) {
+						echo $_POST['rating'];
+
+						$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+						$rating_select_result = mysql_query($rating_select_query);
+						while($row = mysql_fetch_assoc($rating_select_result)) {
+			        // echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br><br>';
+			      }
+					}
+				}
+			}
+			?>
+
       <br>
-      <h3>Komentarze</h3>
+
 
       <?php
 
@@ -45,18 +75,24 @@
 				if ($_SESSION['loggedin'])
 				{
 					echo '
+					<h3>Komentarze<span class="badge">
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
+							Dodaj komentarz
+						</button>
+					</span></h3>
+					<div class="collapse" id="commentForm">
 					<form class="col-md-12" action="snake.php" method="post">
-						<h5>Dodaj komentarz</h5>
-						<div class="form-group">
-							<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
-						</div>
-						<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
-					</form>';
+							<div class="form-group">
+								<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
+					</form><br>
+					</div>';
 					if(isset($_POST['send_comment'])) {
 						// echo $_POST['comment_text'].'<br>';
 						// echo $_SESSION['login'].'<br>';
-						$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
-						$user_id = mysql_fetch_assoc($user_result);
+						// $user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+						// $user_id = mysql_fetch_assoc($user_result);
 						// echo $user_id['id'];
 						$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
 																		VALUES (1, ".$user_id['id'].", '".$_POST['comment_text']."');";
@@ -66,11 +102,11 @@
 			}
 
 			if (!isset($_SESSION['loggedin'])){
-					echo '<a href="index.php">Zaloguj się by dodać komentarz</a>
+					echo '<h3>Komentarze</h3>
+					<a href="index.php">Zaloguj się by dodać komentarz</a>
 					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br>';
 			}
 
-			echo "<br>";
       $comments_query = "SELECT A.timestamp, A.text, B.login as username
                           FROM comments A
                           Join users B
