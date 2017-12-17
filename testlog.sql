@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 24 Lis 2017, 05:18
+-- Host: localhost
+-- Czas generowania: 17 Gru 2017, 21:27
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 5.6.32
 
@@ -44,7 +44,9 @@ INSERT INTO `comments` (`id`, `game_id`, `user_id`, `timestamp`, `text`) VALUES
 (1, 1, 5, '2017-11-24 04:04:51', 'Super gra!'),
 (2, 1, 3, '2017-11-24 03:44:27', 'Dobra zabawa blin'),
 (3, 1, 4, '2017-11-24 03:44:45', 'Rush B!'),
-(4, 4, 6, '2017-11-24 04:08:25', 'Yeah!');
+(4, 4, 6, '2017-11-24 04:08:25', 'Yeah!'),
+(5, 1, 3, '2017-12-05 11:54:45', 'add comment test'),
+(6, 1, 3, '2017-12-15 10:59:22', 'dodajemy komentarz xd');
 
 -- --------------------------------------------------------
 
@@ -92,6 +94,23 @@ CREATE TABLE `ratings` (
   `user_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `ratings`
+--
+
+INSERT INTO `ratings` (`id`, `game_id`, `user_id`, `rating`) VALUES
+(1, 1, 3, 5),
+(2, 1, 4, 5),
+(3, 1, 5, 4),
+(4, 2, 5, 3),
+(5, 2, 4, 4),
+(6, 3, 7, 5),
+(7, 1, 7, 3),
+(8, 3, 3, 2),
+(9, 4, 6, 5),
+(10, 4, 2, 4),
+(11, 1, 6, 5);
 
 -- --------------------------------------------------------
 
@@ -227,7 +246,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT dla tabeli `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `favorites`
@@ -245,7 +264,7 @@ ALTER TABLE `games`
 -- AUTO_INCREMENT dla tabeli `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `scores`
