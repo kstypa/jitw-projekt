@@ -1,11 +1,19 @@
 body {
-  font-size: 14px;
-  line-height: 1.6;
-  background-color: #CCCCFF;
-  color: #222222;
+    font-size: 14px;
+    line-height: 1.6;
+    background-color: #CCCCFF;
+    color: #222222;
 }
 
 .main {
-  padding-top: 10px;
-  background-color: #F0F0F0;
+    padding-top: 10px;
+    background-color: #F0F0F0;
+}
+
+canvas {
+    border: 2px solid rgb(151, 149, 149);
+}
+
+.snake-canvas {
+    align-items: center;
 }
