@@ -3,7 +3,6 @@ TODO:
 funkcjonalność:
     dodać gierki
     zapisywanie wyników
-    /panel administracyjny
     /profile
         zdjęcia profilowe?
     /znajomi
