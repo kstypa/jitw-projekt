@@ -3,11 +3,11 @@ TODO:
 funkcjonalność:
     dodać gierki
     zapisywanie wyników
-    panel administracyjny
-    profile
+    /panel administracyjny
+    /profile
         zdjęcia profilowe?
-    znajomi
-    ulubione gry
+    /znajomi
+    /ulubione gry
     ranking popularności
     komunikator
     strona główna
@@ -19,4 +19,3 @@ wygląd:
     strona gry - wyświetlanie oceny i komentarzy
     ogólny styl - kolory, itd.
     logo?
-    
