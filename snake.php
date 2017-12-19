@@ -87,6 +87,33 @@
 					else {
 						echo 'Nie oceniłeś jeszcze tej gry';
 					}
+
+					if(isset($_POST['delete_favorite'])) {
+						$add_favorite_query = "DELETE FROM `favorites`
+												WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+						$add_favorite_result = mysql_query($add_favorite_query);
+					}
+
+					if(isset($_POST['add_favorite'])) {
+						$add_favorite_query = "INSERT INTO `favorites` (`user_id`, `game_id`)
+												VALUES (".$user_id['id'].", 1);";
+						$add_favorite_result = mysql_query($add_favorite_query);
+					}
+
+					$fav_select_query = "SELECT * FROM `favorites` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+					$fav_select_result = mysql_query($fav_select_query);
+					if($row = mysql_fetch_assoc($fav_select_result)) {
+						echo '
+							<form action="snake.php" method="post">
+								<button class="btn btn-primary" type="submit" name="delete_favorite">Usuń z ulubionych</button>
+							</form>';
+					}
+					else {
+						echo '
+							<form action="snake.php" method="post">
+								<button class="btn btn-primary" type="submit" name="add_favorite">Dodaj do ulubionych</button>
+							</form>';
+					}
 				}
 			}
 			?>

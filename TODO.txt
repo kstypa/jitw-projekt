@@ -1,12 +1,11 @@
 TODO:
 
 funkcjonalność:
-    dodać gierki
+    /dodać gierki
     zapisywanie wyników
     /profile
         zdjęcia profilowe?
     /znajomi
-    /ulubione gry
     ranking popularności
     komunikator
     strona główna

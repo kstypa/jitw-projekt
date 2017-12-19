@@ -70,7 +70,7 @@
 					<ul><li><a href="./gameslist.php">Lista gier</a></li>
 					<li><a href="./highscores.php">Najlepsi gracze</a></li>
 					<li><a href="">Ranking popularności gier</a></li>
-					<li><a href="">Profil</a></li>
+					<li><a href="./profile.php">Profil</a></li>
 					<li><a href="">Znajomi</a></li></ul><br>';
 
 					if($_SESSION['group_id'] == 1) {

@@ -12,8 +12,10 @@ body {
 
 canvas {
     border: 2px solid rgb(151, 149, 149);
+    margin: auto;
 }
 
 .snake-canvas {
     align-items: center;
+    margin: auto;
 }
