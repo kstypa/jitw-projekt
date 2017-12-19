@@ -92,6 +92,8 @@
       <br>
 
     </div>
+	
+	<?php include './footer.html'; ?>
 
     <?php mysql_close(); ?>
   </body>

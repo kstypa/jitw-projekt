@@ -36,7 +36,7 @@
 				if($_SESSION['loggedin']) {
 					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
 					$user_id = mysql_fetch_assoc($user_result);
-					
+
 					if(isset($_GET['game_id'])) {
 
 						if(isset($_POST['comment_id'])) {
@@ -88,6 +88,8 @@
 			?>
 
 		</div>
+
+		<?php include './footer.html'; ?>
 
 		<?php mysql_close(); ?>
 	</body>

@@ -27,4 +27,5 @@ canvas {
     margin-bottom: 0;
     padding: 10px;
     border-top: 1px solid #007BFF;
+    border-bottom: 1px solid #007BFF;
 }
