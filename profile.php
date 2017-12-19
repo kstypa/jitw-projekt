@@ -31,7 +31,7 @@
 
                     echo $_SESSION['login'];
 
-                    ?>
+                    ?><br><br>
                     <h3>Ulubione gry</h3>
                     <?php
                     $fav_select_query = "SELECT A.game_id, B.name as game
@@ -44,7 +44,7 @@
                     while($row = mysql_fetch_assoc($fav_select_result)) {
                         echo $row['game'].'<br>';
                     }
-                    ?>
+                    ?><br>
                     <h3>Najlepsze wyniki</h3>
                     <?php
                     $scores_select_query = "SELECT A.score, B.name as game
@@ -58,8 +58,8 @@
                         echo $row['game'].' -- '.$row['score'].'<br>';
                     }
                     ?>
-
-                    <h3>Znajomi</h3>
+                    <br>
+                    <h3>Znajomi</h3><br>
                     <?php
                 }
             }
