@@ -9,7 +9,7 @@ funkcjonalność:
     ranking popularności
     komunikator
     strona główna
-        po zalogowaniu - panel użytkownika, ulubione, itd.
+        //po zalogowaniu - panel użytkownika, itd.
 
 wygląd:
     responsywność
