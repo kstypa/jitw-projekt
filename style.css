@@ -8,6 +8,7 @@ body {
 .main {
     padding-top: 10px;
     background-color: #F0F0F0;
+    padding-bottom: 15px;
 }
 
 canvas {
@@ -18,4 +19,12 @@ canvas {
 .snake-canvas {
     align-items: center;
     margin: auto;
+}
+
+.footer {
+    text-align: center;
+    background-color: #AABBFF!important;
+    margin-bottom: 0;
+    padding: 10px;
+    border-top: 1px solid #007BFF;
 }

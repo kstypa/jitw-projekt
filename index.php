@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Logowanie - Gierki</title>
+		<title>Gierki</title>
 
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -63,15 +63,42 @@
 			if(isset($_SESSION['loggedin'])) {
 				if ($_SESSION['loggedin'])
 				{
+					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+					$user_id = mysql_fetch_assoc($user_result);
+
 					echo '
 					<h1>Witaj, '.$_SESSION['login'].'!</h1>
-					<br>
+					<br>';
 
-					<ul><li><a href="./gameslist.php">Lista gier</a></li>
-					<li><a href="./highscores.php">Najlepsi gracze</a></li>
-					<li><a href="">Ranking popularności gier</a></li>
-					<li><a href="./profile.php">Profil</a></li>
-					<li><a href="">Znajomi</a></li></ul><br>';
+					echo '
+					<h3>Zagraj w swoje ulubione gry:</h3>';
+					$fav_select_query = "SELECT A.game_id, B.name as game
+                                                FROM favorites A
+                                                JOIN games B
+                                                ON B.id = A.game_id
+                                                WHERE A.user_id = ".$user_id['id']."
+                                                ORDER BY B.id ASC";
+                    $fav_select_result = mysql_query($fav_select_query);
+                    while($row = mysql_fetch_assoc($fav_select_result)) {
+						echo '<br>
+						<div class="card" style="width: 15rem;">
+							<img class="card-img-top" src="./img/snake1a.png" alt="Snake image">
+							<div class="card-body">
+								<h4 class="card-title">'.$row['game'].'</h4>
+								<p class="card-text">Klasyczna gra o wężu.</p>
+						    	<a href="./snake.php" class="btn btn-primary">Przejdź</a>
+							</div>
+						</div><br><br>';
+                    }
+
+					echo '
+					<ul>
+						<li><a href="./gameslist.php">Lista gier</a></li>
+						<li><a href="./highscores.php">Najlepsi gracze</a></li>
+						<li><a href="">Ranking popularności gier</a></li>
+						<li><a href="./profile.php">Profil</a></li>
+						<li><a href="">Znajomi</a></li>
+					</ul><br>';
 
 					if($_SESSION['group_id'] == 1) {
 						echo '<a href="./admin.php">Panel administracyjny</a><br>';
@@ -109,6 +136,8 @@
 			}
 			?>
 		</div>
+
+		<?php include './footer.html'; ?>
 
 		<?php mysql_close(); ?>
 	</body>
