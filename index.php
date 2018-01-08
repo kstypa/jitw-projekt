@@ -125,8 +125,9 @@
 					<p>W tej chwili jako niezalogowany użytkownik możesz:</p>
 					<ul>
 						<li><a href="./gameslist.php">Przeglądać listę gier wraz z ich opisami</a></li>
-						<li><a href="">Sprawdzić, które gry są najpopularniejsze</a></li>
+						<li><a href="./gameslist.php#popularity">Sprawdzić, które gry są najpopularniejsze</a></li>
 						<li><a href="./highscores.php">Zobaczyć ranking najlepszych graczy</a></li>
+						<li><a href="./userslist.php">Spojrzeć na listę użytkowników i ich profile</a></li>
 					</ul>
 
 					<form class="col-md-4" action="index.php" method="POST">

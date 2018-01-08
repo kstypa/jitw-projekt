@@ -33,17 +33,14 @@
 
 		<div class="container-fluid col-md-8 main">
     		<?php
+
+			$username_query = "SELECT login FROM users WHERE id = ".$profile_id." limit 1;";
+			$username_result = mysql_query($username_query);
+			$username = mysql_fetch_assoc($username_result);
+			echo '<h1>Profil użytkownika '.$username['login'].'</h1><br>';
+
     		if (isset($_SESSION['loggedin'])) {
     			if ($_SESSION['loggedin']) {
-					$username_query = "SELECT login FROM users WHERE id = ".$profile_id." limit 1;";
-					$username_result = mysql_query($username_query);
-					$username = mysql_fetch_assoc($username_result);
-                    echo '<h1>Profil użytkownika '.$username['login'].'</h1>';
-
-                    ?><br>
-
-					<?php
-
 					if($profile_id != $user_id['id']) {
 						if(isset($_POST['delete_friend'])) {
 							$delete_friend_query1 = "DELETE FROM `friends`
@@ -78,38 +75,42 @@
 								</form>';
 						}
 					}
+				}
+			}
 
-					?>
+			?>
 
-					<br>
-                    <h3>Ulubione gry</h3>
-                    <?php
-                    $fav_select_query = "SELECT A.game_id, B.name as game
-                                                FROM favorites A
-                                                JOIN games B
-                                                ON B.id = A.game_id
-                                                WHERE A.user_id = ".$profile_id."
-                                                ORDER BY B.id ASC";
-                    $fav_select_result = mysql_query($fav_select_query);
-                    while($row = mysql_fetch_assoc($fav_select_result)) {
-                        echo $row['game'].'<br>';
-                    }
-                    ?><br>
-                    <h3>Najlepsze wyniki</h3>
-                    <?php
-                    $scores_select_query = "SELECT A.score, B.name as game
-                                                FROM scores A
-                                                JOIN games B
-                                                ON B.id = A.game_id
-                                                WHERE A.user_id = ".$profile_id."
-                                                ORDER BY B.id ASC";
-                    $scores_select_result = mysql_query($scores_select_query);
-                    while($row = mysql_fetch_assoc($scores_select_result)) {
-                        echo $row['game'].' -- '.$row['score'].'<br>';
-                    }
-                    ?>
-                    <br>
-					<?php
+			<br>
+            <h3>Ulubione gry</h3>
+            <?php
+            $fav_select_query = "SELECT A.game_id, B.name as game
+                                        FROM favorites A
+                                        JOIN games B
+                                        ON B.id = A.game_id
+                                        WHERE A.user_id = ".$profile_id."
+                                        ORDER BY B.id ASC";
+            $fav_select_result = mysql_query($fav_select_query);
+            while($row = mysql_fetch_assoc($fav_select_result)) {
+                echo $row['game'].'<br>';
+            }
+            ?><br>
+            <h3>Najlepsze wyniki</h3>
+            <?php
+            $scores_select_query = "SELECT A.score, B.name as game
+                                        FROM scores A
+                                        JOIN games B
+                                        ON B.id = A.game_id
+                                        WHERE A.user_id = ".$profile_id."
+                                        ORDER BY B.id ASC";
+            $scores_select_result = mysql_query($scores_select_query);
+            while($row = mysql_fetch_assoc($scores_select_result)) {
+                echo $row['game'].' -- '.$row['score'].'<br>';
+            }
+            ?>
+            <br>
+			<?php
+			if (isset($_SESSION['loggedin'])) {
+    			if ($_SESSION['loggedin']) {
 					if($profile_id == $user_id['id']) {
 
 						$friends_list_query = "SELECT A.user2_id as fid, B.login as name
