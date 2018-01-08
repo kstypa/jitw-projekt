@@ -105,9 +105,10 @@
 					<ul>
 						<li><a href="./gameslist.php">Lista gier</a></li>
 						<li><a href="./highscores.php">Najlepsi gracze</a></li>
-						<li><a href="">Ranking popularności gier</a></li>
+						<li><a href="./gameslist.php#popularity">Ranking popularności gier</a></li>
 						<li><a href="./profile.php?id='.$user_id['id'].'">Profil</a></li>
-						<li><a href="">Znajomi</a></li>
+						<li><a href="./profile.php?id='.$user_id['id'].'#friends">Znajomi</a></li>
+						<li><a href="./userslist.php">Lista użytkowników</a></li>
 					</ul><br>';
 
 					if($_SESSION['group_id'] == 1) {

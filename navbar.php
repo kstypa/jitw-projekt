@@ -23,6 +23,9 @@ if(isset($_SESSION['loggedin'])) {
             <li class="nav-item">
                 <a class="nav-link" href="./highscores.php">Najlepsi gracze</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./userslist.php">Lista użytkowników</a>
+            </li>
 
             <?php
             if(isset($_SESSION['loggedin'])) {
@@ -34,7 +37,7 @@ if(isset($_SESSION['loggedin'])) {
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="./profile.php?id='.$user_id['id'].'">Zobacz profil</a>
-                            <a class="dropdown-item" href="#">Znajomi</a>
+                            <a class="dropdown-item" href="./profile.php?id='.$user_id['id'].'#friends">Znajomi</a>
                             <a class="dropdown-item" href="./index.php?logout=1">Wyloguj się</a>
                         </div>
                     </li>';

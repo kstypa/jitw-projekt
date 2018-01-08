@@ -5,8 +5,6 @@ funkcjonalność:
     zapisywanie wyników
     //profile
         zdjęcia profilowe?
-    /znajomi
-        //lista
     komunikator
     lista użytkowników
         szukanie

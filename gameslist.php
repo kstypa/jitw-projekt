@@ -46,7 +46,7 @@
 			</ul>
 
 
-			<h2>Najpopularniejsze gry:</h1>
+			<h2 id="popularity">Najpopularniejsze gry:</h2>
 			<?php
 			$popularity_query = "SELECT name, play_count
 									FROM games

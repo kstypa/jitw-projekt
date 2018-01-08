@@ -111,8 +111,26 @@
                     <br>
 					<?php
 					if($profile_id == $user_id['id']) {
-						echo '<h3>Znajomi</h3>
-						TODO LISTA ZNAJOMYCH';
+
+						$friends_list_query = "SELECT A.user2_id as fid, B.login as name
+												FROM friends A
+												JOIN users B
+												ON B.id = A.user2_id
+												WHERE user1_id = ".$user_id['id'].";";
+						$friends_list_result = mysql_query($friends_list_query);
+						$friendscounter = 0;
+
+						echo '
+						<h3 id="friends">Znajomi</h3>
+						<ul>';
+						while($row = mysql_fetch_assoc($friends_list_result)) {
+							$friendscounter++;
+							echo '<li><a href="profile.php?id='.$row['fid'].'">'.$row['name'].'</a></li>';
+						}
+						echo '</ul>';
+						if($friendscounter == 0) {
+							echo 'Nie masz jeszcze żadnych znajomych! Znajdź ich na <a href="./userslist.php">liście użytkowników</a>!';
+						}
 					}
 					?>
 					<br>
