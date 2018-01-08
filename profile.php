@@ -40,7 +40,48 @@
 					$username = mysql_fetch_assoc($username_result);
                     echo '<h1>Profil użytkownika '.$username['login'].'</h1>';
 
-                    ?><br><br>
+                    ?><br>
+
+					<?php
+
+					if($profile_id != $user_id['id']) {
+						if(isset($_POST['delete_friend'])) {
+							$delete_friend_query1 = "DELETE FROM `friends`
+													WHERE `user1_id` = ".$user_id['id']." AND `user2_id` = ".$profile_id." limit 1;";
+							$delete_friend_result1 = mysql_query($delete_friend_query1);
+							$delete_friend_query2 = "DELETE FROM `friends`
+													WHERE `user2_id` = ".$user_id['id']." AND `user1_id` = ".$profile_id." limit 1;";
+							$delete_friend_result2 = mysql_query($delete_friend_query2);
+						}
+
+						if(isset($_POST['add_friend'])) {
+							$add_friend_query1 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
+													VALUES (".$user_id['id'].", ".$profile_id.");";
+							$add_friend_result1 = mysql_query($add_friend_query1);
+							$add_friend_query2 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
+													VALUES (".$profile_id.", ".$user_id['id'].");";
+							$add_friend_result2 = mysql_query($add_friend_query2);
+						}
+
+						$friends_select_query = "SELECT * FROM `friends` WHERE `user1_id` = ".$user_id['id']." AND `user2_id` = ".$profile_id." limit 1;";
+						$friends_select_result = mysql_query($friends_select_query);
+						if($row = mysql_fetch_assoc($friends_select_result)) {
+							echo '
+								<form action="profile.php?id='.$profile_id.'" method="post">
+									<button class="btn btn-primary" type="submit" name="delete_friend">Usuń ze znajomych</button>
+								</form>';
+						}
+						else {
+							echo '
+								<form action="profile.php?id='.$profile_id.'" method="post">
+									<button class="btn btn-primary" type="submit" name="add_friend">Dodaj do znajomych</button>
+								</form>';
+						}
+					}
+
+					?>
+
+					<br>
                     <h3>Ulubione gry</h3>
                     <?php
                     $fav_select_query = "SELECT A.game_id, B.name as game
@@ -68,7 +109,13 @@
                     }
                     ?>
                     <br>
-                    <h3>Znajomi</h3><br>
+					<?php
+					if($profile_id == $user_id['id']) {
+						echo '<h3>Znajomi</h3>
+						TODO LISTA ZNAJOMYCH';
+					}
+					?>
+					<br>
                     <?php
                 }
             }

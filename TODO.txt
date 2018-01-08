@@ -3,10 +3,13 @@ TODO:
 funkcjonalność:
     /dodać gierki
     zapisywanie wyników
-    /profile
+    //profile
         zdjęcia profilowe?
     /znajomi
+        //lista
     komunikator
+    lista użytkowników
+        szukanie
 
 wygląd:
     responsywność

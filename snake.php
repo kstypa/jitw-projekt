@@ -90,9 +90,9 @@
 					}
 
 					if(isset($_POST['delete_favorite'])) {
-						$add_favorite_query = "DELETE FROM `favorites`
+						$delete_favorite_query = "DELETE FROM `favorites`
 												WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
-						$add_favorite_result = mysql_query($add_favorite_query);
+						$delete_favorite_result = mysql_query($delete_favorite_query);
 					}
 
 					if(isset($_POST['add_favorite'])) {
