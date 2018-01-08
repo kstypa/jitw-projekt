@@ -1,5 +1,6 @@
 <?php
 	require_once "session.php";
+	$profile_id = $_GET['id'];
 ?>
 
 <!DOCTYPE html>

@@ -17,55 +17,60 @@
 
 	<body>
 
-		<?php include "navbar.php"; ?>
+		<?php
+
+		$loginmessage = "";
+
+		if (isset($_GET['logout']))
+		{
+			unset($_SESSION['loggedin']);
+			session_destroy();
+		}
+
+		function filter($var)
+		{
+			if(get_magic_quotes_gpc())
+				$var = stripslashes($var);
+			return mysql_real_escape_string(htmlspecialchars(trim($var)));
+		}
+
+		if (isset($_POST['signin']))
+		{
+			$login = filter($_POST['login']);
+			$password = filter($_POST['password']);
+			$ip = filter($_SERVER['REMOTE_ADDR']);
+
+			if (mysql_num_rows(mysql_query("SELECT login, password FROM users WHERE login = '".$login."' AND password = '".md5($password)."';")) > 0)
+			{
+				mysql_query("UPDATE `users` SET (`last_login` = '".time().", `ip` = '".$ip."'') WHERE login = '".$login."';");
+
+				$group_id_query = "SELECT group_id FROM users WHERE login = '".$login."' limit 1;";
+				$gid_result = mysql_query($group_id_query);
+				$row = mysql_fetch_assoc($gid_result);
+
+				$_SESSION['loggedin'] = true;
+				$_SESSION['login'] = $login;
+				$_SESSION['group_id'] = $row['group_id'];
+
+			}
+			// else echo "Wpisany login i/lub hasło są niepoprawne.";
+			else $loginmessage = "<br>Wpisany login i/lub hasło są niepoprawne.";
+		}
+
+		include "navbar.php";
+		?>
 
 		<div class="container-fluid col-md-8 main">
 			<?php
 
-			$loginmessage = "";
 
-			if (isset($_GET['logout']))
-			{
-				unset($_SESSION['loggedin']);
-				session_destroy();
-			}
-
-			function filter($var)
-			{
-			    if(get_magic_quotes_gpc())
-			        $var = stripslashes($var);
-			    return mysql_real_escape_string(htmlspecialchars(trim($var)));
-			}
-
-			if (isset($_POST['signin']))
-			{
-				$login = filter($_POST['login']);
-				$password = filter($_POST['password']);
-				$ip = filter($_SERVER['REMOTE_ADDR']);
-
-				if (mysql_num_rows(mysql_query("SELECT login, password FROM users WHERE login = '".$login."' AND password = '".md5($password)."';")) > 0)
-				{
-					mysql_query("UPDATE `users` SET (`last_login` = '".time().", `ip` = '".$ip."'') WHERE login = '".$login."';");
-
-					$group_id_query = "SELECT group_id FROM users WHERE login = '".$login."' limit 1;";
-					$gid_result = mysql_query($group_id_query);
-					$row = mysql_fetch_assoc($gid_result);
-
-					$_SESSION['loggedin'] = true;
-					$_SESSION['login'] = $login;
-					$_SESSION['group_id'] = $row['group_id'];
-
-				}
-				// else echo "Wpisany login i/lub hasło są niepoprawne.";
-				else $loginmessage = "<br>Wpisany login i/lub hasło są niepoprawne.";
-			}
 
 			if(isset($_SESSION['loggedin'])) {
 				if ($_SESSION['loggedin'])
 				{
 					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
 			        $user_id = mysql_fetch_assoc($user_result);
-					
+
 					echo '
 					<h1>Witaj, '.$_SESSION['login'].'!</h1>
 					<br>';
@@ -101,7 +106,7 @@
 						<li><a href="./gameslist.php">Lista gier</a></li>
 						<li><a href="./highscores.php">Najlepsi gracze</a></li>
 						<li><a href="">Ranking popularności gier</a></li>
-						<li><a href="./profile.php">Profil</a></li>
+						<li><a href="./profile.php?id='.$user_id['id'].'">Profil</a></li>
 						<li><a href="">Znajomi</a></li>
 					</ul><br>';
 
