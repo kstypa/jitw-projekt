@@ -17,7 +17,7 @@
 
 	<body>
 
-		<?php include "navbar.html"; ?>
+		<?php include "navbar.php"; ?>
 
 		<div class="container-fluid col-md-8 main">
 

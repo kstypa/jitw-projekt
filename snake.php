@@ -18,7 +18,7 @@
 
 	<body>
 
-		<?php include "navbar.html";
+		<?php include "navbar.php";
 
 		mysql_query("UPDATE games SET play_count = play_count + 1 WHERE id = 1;")
 
@@ -48,9 +48,6 @@
 			<?php
 			if (isset($_SESSION['loggedin'])) {
 				if ($_SESSION['loggedin']) {
-					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
-					$user_id = mysql_fetch_assoc($user_result);
-
 					echo '<h3>Oceń grę</h3>
 								<form action="snake.php" method="post">
 									<div class="btn-group" role="group">

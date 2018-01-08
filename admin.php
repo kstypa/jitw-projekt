@@ -17,7 +17,7 @@
 
 	<body>
 
-		<?php include "navbar.html"; ?>
+		<?php include "navbar.php"; ?>
 
 		<div class="container-fluid col-md-8 main">
 
@@ -34,11 +34,7 @@
 			<?php
 			if(isset($_SESSION['loggedin'])) {
 				if($_SESSION['loggedin']) {
-					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
-					$user_id = mysql_fetch_assoc($user_result);
-
 					if(isset($_GET['game_id'])) {
-
 						if(isset($_POST['comment_id'])) {
 							// echo $_POST['comment_id'];
 							$delete_comment_query = "DELETE FROM `comments` WHERE id=".$_POST['comment_id']." limit 1;";

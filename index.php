@@ -17,7 +17,7 @@
 
 	<body>
 
-		<?php include "navbar.html"; ?>
+		<?php include "navbar.php"; ?>
 
 		<div class="container-fluid col-md-8 main">
 			<?php
@@ -64,8 +64,8 @@
 				if ($_SESSION['loggedin'])
 				{
 					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
-					$user_id = mysql_fetch_assoc($user_result);
-
+			        $user_id = mysql_fetch_assoc($user_result);
+					
 					echo '
 					<h1>Witaj, '.$_SESSION['login'].'!</h1>
 					<br>';

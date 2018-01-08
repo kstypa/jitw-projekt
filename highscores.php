@@ -17,7 +17,7 @@
 
 	<body>
 
-		<?php include "navbar.html"; ?>
+		<?php include "navbar.php"; ?>
 
 		<div class="container-fluid col-md-8 main">
       <h1>Najlepsi gracze</h1>
@@ -92,7 +92,7 @@
       <br>
 
     </div>
-	
+
 	<?php include './footer.html'; ?>
 
     <?php mysql_close(); ?>
