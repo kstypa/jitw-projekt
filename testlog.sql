@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Czas generowania: 17 Gru 2017, 21:27
+-- Host: 127.0.0.1
+-- Czas generowania: 08 Sty 2018, 04:43
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 5.6.32
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `comments`
 --
 
+DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
@@ -45,8 +46,7 @@ INSERT INTO `comments` (`id`, `game_id`, `user_id`, `timestamp`, `text`) VALUES
 (2, 1, 3, '2017-11-24 03:44:27', 'Dobra zabawa blin'),
 (3, 1, 4, '2017-11-24 03:44:45', 'Rush B!'),
 (4, 4, 6, '2017-11-24 04:08:25', 'Yeah!'),
-(5, 1, 3, '2017-12-05 11:54:45', 'add comment test'),
-(6, 1, 3, '2017-12-15 10:59:22', 'dodajemy komentarz xd');
+(10, 1, 1, '2017-12-18 03:21:28', 'test2');
 
 -- --------------------------------------------------------
 
@@ -54,11 +54,44 @@ INSERT INTO `comments` (`id`, `game_id`, `user_id`, `timestamp`, `text`) VALUES
 -- Struktura tabeli dla tabeli `favorites`
 --
 
+DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `user_id`, `game_id`) VALUES
+(2, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `friends`
+--
+
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE `friends` (
+  `id` int(11) NOT NULL,
+  `user1_id` int(11) NOT NULL,
+  `user2_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `friends`
+--
+
+INSERT INTO `friends` (`id`, `user1_id`, `user2_id`) VALUES
+(3, 3, 5),
+(4, 5, 3),
+(5, 3, 4),
+(6, 4, 3),
+(7, 3, 7),
+(8, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -66,21 +99,26 @@ CREATE TABLE `favorites` (
 -- Struktura tabeli dla tabeli `games`
 --
 
+DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `play_count` int(11) NOT NULL
+  `play_count` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  `image1` varchar(255) NOT NULL,
+  `image2` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Zrzut danych tabeli `games`
 --
 
-INSERT INTO `games` (`id`, `name`, `play_count`) VALUES
-(1, 'Snake', 0),
-(2, 'Wisielec', 0),
-(3, 'Space Invaders', 0),
-(4, 'Arkanoid', 0);
+INSERT INTO `games` (`id`, `name`, `play_count`, `description`, `thumbnail`, `image1`, `image2`) VALUES
+(1, 'Snake', 8, 'Klasyczna gra o wężu. Zjadaj kolejne kropki i zdobywaj punkty!', 'img/snakethumb.png', '', ''),
+(2, 'Wisielec', 0, '', '', '', ''),
+(3, 'Space Invaders', 0, '', '', '', ''),
+(4, 'Arkanoid', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -88,6 +126,7 @@ INSERT INTO `games` (`id`, `name`, `play_count`) VALUES
 -- Struktura tabeli dla tabeli `ratings`
 --
 
+DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE `ratings` (
   `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
@@ -118,6 +157,7 @@ INSERT INTO `ratings` (`id`, `game_id`, `user_id`, `rating`) VALUES
 -- Struktura tabeli dla tabeli `scores`
 --
 
+DROP TABLE IF EXISTS `scores`;
 CREATE TABLE `scores` (
   `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
@@ -148,6 +188,7 @@ INSERT INTO `scores` (`id`, `game_id`, `user_id`, `timestamp`, `score`) VALUES
 -- Struktura tabeli dla tabeli `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
@@ -178,6 +219,7 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `group_id`, `registered
 -- Struktura tabeli dla tabeli `user_groups`
 --
 
+DROP TABLE IF EXISTS `user_groups`;
 CREATE TABLE `user_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
@@ -206,6 +248,12 @@ ALTER TABLE `comments`
 -- Indexes for table `favorites`
 --
 ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -246,13 +294,19 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT dla tabeli `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT dla tabeli `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `games`
