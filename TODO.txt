@@ -6,10 +6,7 @@ funkcjonalność:
     /profile
         zdjęcia profilowe?
     /znajomi
-    ranking popularności
     komunikator
-    strona główna
-        //po zalogowaniu - panel użytkownika, itd.
 
 wygląd:
     responsywność

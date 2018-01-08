@@ -25,31 +25,45 @@
 			$rating = [0, 0, 0, 0];
 			for ($i = 0; $i < 4; ++$i) {
 				$rating_query = "SELECT rating FROM ratings WHERE game_id = $i+1";
-	      $rating_result = mysql_query($rating_query);
+				$rating_result = mysql_query($rating_query);
 				$sum = 0;
 				$n = 0;
-	      while($row = mysql_fetch_assoc($rating_result)) {
-	        ++$n;
+				while($row = mysql_fetch_assoc($rating_result)) {
+					++$n;
 					$sum += $row['rating'];
-	      }
+				}
 				$rating[$i] = $sum / $n;
 			}
 
 			?>
 
-      <h1>Lista gier</h1>
-      <ul>
-        <li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo $rating[0] ?></li>
-        <li><a href="">Wisielec</a> ocena użytkowników: <?php echo $rating[1] ?></li>
-        <li><a href="">Space Invaders</a> ocena użytkowników: <?php echo $rating[2] ?></li>
-        <li><a href="">Arkanoid</a> ocena użytkowników: <?php echo $rating[3] ?></li>
-      </ul>
+			<h1>Lista gier</h1>
+			<ul>
+				<li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo $rating[0] ?></li>
+				<li><a href="">Wisielec</a> ocena użytkowników: <?php echo $rating[1] ?></li>
+				<li><a href="">Space Invaders</a> ocena użytkowników: <?php echo $rating[2] ?></li>
+				<li><a href="">Arkanoid</a> ocena użytkowników: <?php echo $rating[3] ?></li>
+			</ul>
 
 
-    </div>
-	
-	<?php include './footer.html'; ?>
+			<h2>Najpopularniejsze gry:</h1>
+			<?php
+			$popularity_query = "SELECT name, play_count
+									FROM games
+									ORDER BY play_count DESC limit 3;";
+			$popularity_result = mysql_query($popularity_query);
+			echo '<ol type="1">';
+			while($row = mysql_fetch_assoc($popularity_result)) {
+				echo '<li>'.$row['name'].' -- grana '.$row['play_count'].' razy</li>';
+			}
+			echo '</ol>'
 
-    <?php mysql_close(); ?>
-  </body>
+			?>
+
+    	</div>
+
+		<?php include './footer.html'; ?>
+
+    	<?php mysql_close(); ?>
+	</body>
 </html>

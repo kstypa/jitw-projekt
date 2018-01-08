@@ -18,7 +18,11 @@
 
 	<body>
 
-		<?php include "navbar.html"; ?>
+		<?php include "navbar.html";
+
+		mysql_query("UPDATE games SET play_count = play_count + 1 WHERE id = 1;")
+
+		?>
 
 		<div class="container-fluid col-md-8 main">
       <h1>Snake</h1>

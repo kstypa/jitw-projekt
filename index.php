@@ -72,24 +72,29 @@
 
 					echo '
 					<h3>Zagraj w swoje ulubione gry:</h3>';
-					$fav_select_query = "SELECT A.game_id, B.name as game
+					$fav_select_query = "SELECT A.game_id, B.thumbnail, B.description, B.name as game
                                                 FROM favorites A
                                                 JOIN games B
                                                 ON B.id = A.game_id
                                                 WHERE A.user_id = ".$user_id['id']."
                                                 ORDER BY B.id ASC";
                     $fav_select_result = mysql_query($fav_select_query);
+					$favcounter = 0;
                     while($row = mysql_fetch_assoc($fav_select_result)) {
 						echo '<br>
 						<div class="card" style="width: 15rem;">
-							<img class="card-img-top" src="./img/snake1a.png" alt="Snake image">
+							<img class="card-img-top" src="'.$row['thumbnail'].'" alt="Game thumbnail">
 							<div class="card-body">
 								<h4 class="card-title">'.$row['game'].'</h4>
-								<p class="card-text">Klasyczna gra o wężu.</p>
+								<p class="card-text">'.$row['description'].'</p>
 						    	<a href="./snake.php" class="btn btn-primary">Przejdź</a>
 							</div>
 						</div><br><br>';
+						$favcounter++;
                     }
+					if($favcounter == 0) {
+						echo 'Nie masz żadnych ulubionych gier! Dodaj jakieś klikając przycisk na stronie gry!<br><br>';
+					}
 
 					echo '
 					<ul>
