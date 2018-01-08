@@ -6,12 +6,13 @@ funkcjonalność:
     //profile
         zdjęcia profilowe?
     komunikator
-    lista użytkowników
-        szukanie
+    ??edycja komentarzy w panelu administracyjnym
 
 wygląd:
     responsywność
     lista gier - opisy, screeny
     strona gry - wyświetlanie oceny i komentarzy
+    lista użytkowników - tabela
+    panel administracyjny - komentarze
     ogólny styl - kolory, itd.
     logo?
