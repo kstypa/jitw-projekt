@@ -1,6 +1,16 @@
 <?php
 	require_once "session.php";
-	$profile_id = $_GET['id'];
+	if(isset($_GET['id'])) {
+		if($_GET['id']) {
+			$profile_id = $_GET['id'];
+		}
+		else {
+			$profile_id = $user_id['id'];
+		}
+	}
+	else {
+		$profile_id = $user_id['id'];
+	}
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +32,13 @@
 		<?php include "navbar.php"; ?>
 
 		<div class="container-fluid col-md-8 main">
-            <h1>Profil</h1>
-
     		<?php
     		if (isset($_SESSION['loggedin'])) {
     			if ($_SESSION['loggedin']) {
-                    echo $_SESSION['login'];
+					$username_query = "SELECT login FROM users WHERE id = ".$profile_id." limit 1;";
+					$username_result = mysql_query($username_query);
+					$username = mysql_fetch_assoc($username_result);
+                    echo '<h1>Profil użytkownika '.$username['login'].'</h1>';
 
                     ?><br><br>
                     <h3>Ulubione gry</h3>
@@ -36,7 +47,7 @@
                                                 FROM favorites A
                                                 JOIN games B
                                                 ON B.id = A.game_id
-                                                WHERE A.user_id = ".$user_id['id']."
+                                                WHERE A.user_id = ".$profile_id."
                                                 ORDER BY B.id ASC";
                     $fav_select_result = mysql_query($fav_select_query);
                     while($row = mysql_fetch_assoc($fav_select_result)) {
@@ -49,7 +60,7 @@
                                                 FROM scores A
                                                 JOIN games B
                                                 ON B.id = A.game_id
-                                                WHERE A.user_id = ".$user_id['id']."
+                                                WHERE A.user_id = ".$profile_id."
                                                 ORDER BY B.id ASC";
                     $scores_select_result = mysql_query($scores_select_query);
                     while($row = mysql_fetch_assoc($scores_select_result)) {
