@@ -25,6 +25,10 @@ canvas {
     margin: auto;
 }
 
+.gameframe iframe {
+    border: none;
+}
+
 .footer {
     text-align: center;
     background-color: #AABBFF!important;

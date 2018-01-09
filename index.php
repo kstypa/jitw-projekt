@@ -77,7 +77,7 @@
 
 					echo '
 					<h3>Zagraj w swoje ulubione gry:</h3>';
-					$fav_select_query = "SELECT A.game_id, B.thumbnail, B.description, B.name as game
+					$fav_select_query = "SELECT A.game_id, B.url, B.thumbnail, B.description, B.name as game
                                                 FROM favorites A
                                                 JOIN games B
                                                 ON B.id = A.game_id
@@ -92,7 +92,7 @@
 							<div class="card-body">
 								<h4 class="card-title">'.$row['game'].'</h4>
 								<p class="card-text">'.$row['description'].'</p>
-						    	<a href="./snake.php" class="btn btn-primary">Przejdź</a>
+						    	<a href="'.$row['url'].'" class="btn btn-primary">Przejdź</a>
 							</div>
 						</div><br><br>';
 						$favcounter++;
