@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 08 Sty 2018, 04:43
+-- Host: localhost
+-- Czas generowania: 10 Sty 2018, 04:16
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 5.6.32
 
@@ -105,6 +105,7 @@ CREATE TABLE `games` (
   `name` varchar(255) NOT NULL,
   `play_count` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
   `thumbnail` varchar(255) NOT NULL,
   `image1` varchar(255) NOT NULL,
   `image2` varchar(255) NOT NULL
@@ -114,11 +115,12 @@ CREATE TABLE `games` (
 -- Zrzut danych tabeli `games`
 --
 
-INSERT INTO `games` (`id`, `name`, `play_count`, `description`, `thumbnail`, `image1`, `image2`) VALUES
-(1, 'Snake', 8, 'Klasyczna gra o wężu. Zjadaj kolejne kropki i zdobywaj punkty!', 'img/snakethumb.png', '', ''),
-(2, 'Wisielec', 0, '', '', '', ''),
-(3, 'Space Invaders', 0, '', '', '', ''),
-(4, 'Arkanoid', 0, '', '', '', '');
+INSERT INTO `games` (`id`, `name`, `play_count`, `description`, `url`, `thumbnail`, `image1`, `image2`) VALUES
+(1, 'Snake', 10, 'Klasyczna gra o wężu. Zjadaj kolejne kropki i zdobywaj punkty!', './snake.php', 'img/snakethumb.png', '', ''),
+(2, 'Wisielec', 0, '', '', '', '', ''),
+(3, 'Space Invaders', 0, '', '', '', '', ''),
+(4, 'Arkanoid', 0, '', '', '', '', ''),
+(5, 'Tetris', 42, 'Układaj spadające klocki i zdobądź jak najwięcej punktów!', './tetris.php', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,7 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT dla tabeli `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `ratings`
