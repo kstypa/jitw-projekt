@@ -1,5 +1,19 @@
 <?php
 	require_once "session.php";
+
+	if(!isset($_GET['id'])) {
+		redirect('./gameslist.php');
+	}
+	else {
+		$gidcounter = 0;
+		$gidcheck = mysql_query("SELECT * FROM games WHERE id = ".$_GET['id'].";");
+		while(mysql_fetch_assoc($gidcheck)){
+			$gidcounter++;
+		}
+		if($gidcounter == 0) {
+			redirect('./gameslist.php');
+		}
+	}
 ?>
 
 <!DOCTYPE html>
