@@ -81,7 +81,7 @@
                                                 FROM favorites A
                                                 JOIN games B
                                                 ON B.id = A.game_id
-                                                WHERE A.user_id = ".$user_id['id']."
+                                                WHERE A.user_id = ".$uid."
                                                 ORDER BY B.id ASC";
                     $fav_select_result = mysql_query($fav_select_query);
 					$favcounter = 0;
@@ -106,8 +106,8 @@
 						<li><a href="./gameslist.php">Lista gier</a></li>
 						<li><a href="./highscores.php">Najlepsi gracze</a></li>
 						<li><a href="./gameslist.php#popularity">Ranking popularności gier</a></li>
-						<li><a href="./profile.php?id='.$user_id['id'].'">Profil</a></li>
-						<li><a href="./profile.php?id='.$user_id['id'].'#friends">Znajomi</a></li>
+						<li><a href="./profile.php?id='.$uid.'">Profil</a></li>
+						<li><a href="./profile.php?id='.$uid.'#friends">Znajomi</a></li>
 						<li><a href="./userslist.php">Lista użytkowników</a></li>
 					</ul><br>';
 

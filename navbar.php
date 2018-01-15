@@ -36,8 +36,8 @@ if(isset($_SESSION['loggedin'])) {
                             Profil
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="./profile.php?id='.$user_id['id'].'">Zobacz profil</a>
-                            <a class="dropdown-item" href="./profile.php?id='.$user_id['id'].'#friends">Znajomi</a>
+                            <a class="dropdown-item" href="./profile.php?id='.$uid.'">Zobacz profil</a>
+                            <a class="dropdown-item" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
                             <a class="dropdown-item" href="./index.php?logout=1">Wyloguj się</a>
                         </div>
                     </li>';

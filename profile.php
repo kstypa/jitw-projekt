@@ -15,11 +15,11 @@
 			$profile_id = $_GET['id'];
 		}
 		else {
-			$profile_id = $user_id['id'];
+			$profile_id = $uid;
 		}
 	}
 	else {
-		$profile_id = $user_id['id'];
+		$profile_id = $uid;
 	}
 ?>
 
@@ -51,26 +51,26 @@
 
     		if (isset($_SESSION['loggedin'])) {
     			if ($_SESSION['loggedin']) {
-					if($profile_id != $user_id['id']) {
+					if($profile_id != $uid) {
 						if(isset($_POST['delete_friend'])) {
 							$delete_friend_query1 = "DELETE FROM `friends`
-													WHERE `user1_id` = ".$user_id['id']." AND `user2_id` = ".$profile_id." limit 1;";
+													WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
 							$delete_friend_result1 = mysql_query($delete_friend_query1);
 							$delete_friend_query2 = "DELETE FROM `friends`
-													WHERE `user2_id` = ".$user_id['id']." AND `user1_id` = ".$profile_id." limit 1;";
+													WHERE `user2_id` = ".$uid." AND `user1_id` = ".$profile_id." limit 1;";
 							$delete_friend_result2 = mysql_query($delete_friend_query2);
 						}
 
 						if(isset($_POST['add_friend'])) {
 							$add_friend_query1 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
-													VALUES (".$user_id['id'].", ".$profile_id.");";
+													VALUES (".$uid.", ".$profile_id.");";
 							$add_friend_result1 = mysql_query($add_friend_query1);
 							$add_friend_query2 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
-													VALUES (".$profile_id.", ".$user_id['id'].");";
+													VALUES (".$profile_id.", ".$uid.");";
 							$add_friend_result2 = mysql_query($add_friend_query2);
 						}
 
-						$friends_select_query = "SELECT * FROM `friends` WHERE `user1_id` = ".$user_id['id']." AND `user2_id` = ".$profile_id." limit 1;";
+						$friends_select_query = "SELECT * FROM `friends` WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
 						$friends_select_result = mysql_query($friends_select_query);
 						if($row = mysql_fetch_assoc($friends_select_result)) {
 							echo '
@@ -121,13 +121,13 @@
 			<?php
 			if (isset($_SESSION['loggedin'])) {
     			if ($_SESSION['loggedin']) {
-					if($profile_id == $user_id['id']) {
+					if($profile_id == $uid) {
 
 						$friends_list_query = "SELECT A.user2_id as fid, B.login as name
 												FROM friends A
 												JOIN users B
 												ON B.id = A.user2_id
-												WHERE user1_id = ".$user_id['id'].";";
+												WHERE user1_id = ".$uid.";";
 						$friends_list_result = mysql_query($friends_list_query);
 						$friendscounter = 0;
 

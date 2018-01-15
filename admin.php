@@ -58,7 +58,7 @@
 						</div>';
 						if(isset($_POST['send_comment'])) {
 							$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
-							VALUES (".$_GET['game_id'].", ".$user_id['id'].", '".$_POST['comment_text']."');";
+							VALUES (".$_GET['game_id'].", ".$uid.", '".$_POST['comment_text']."');";
 							$add_com_result = mysql_query($add_comment_query);
 						}
 

@@ -61,23 +61,23 @@
 								<br>';
 
 					if (isset($_POST['rating'])) {
-						$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+						$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$uid." limit 1;";
 						$rating_select_result = mysql_query($rating_select_query);
 
 						if($row = mysql_fetch_assoc($rating_select_result)) {
 							$rating_update_query = "UPDATE `ratings`
 																			SET `rating` = ".$_POST['rating']."
-																			WHERE `game_id` = 1 AND `user_id` = ".$user_id['id'].";";
+																			WHERE `game_id` = 1 AND `user_id` = ".$uid.";";
 							$rating_update_result = mysql_query($rating_update_query);
 			        	}
 						else {
 							$rating_insert_query = "INSERT INTO `ratings` (`game_id`, `user_id`, `rating`)
-																			VALUES (1, ".$user_id['id'].", '".$_POST['rating']."');";
+																			VALUES (1, ".$uid.", '".$_POST['rating']."');";
 							$rating_insert_result = mysql_query($rating_insert_query);
 						}
 					}
 
-					$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+					$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = 1 AND `user_id` = ".$uid." limit 1;";
 					$rating_select_result = mysql_query($rating_select_query);
 					if ($row = mysql_fetch_assoc($rating_select_result)) {
 						echo 'Twoja obecna ocena: '.$row['rating'];
@@ -88,17 +88,17 @@
 
 					if(isset($_POST['delete_favorite'])) {
 						$delete_favorite_query = "DELETE FROM `favorites`
-												WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+												WHERE `game_id` = 1 AND `user_id` = ".$uid." limit 1;";
 						$delete_favorite_result = mysql_query($delete_favorite_query);
 					}
 
 					if(isset($_POST['add_favorite'])) {
 						$add_favorite_query = "INSERT INTO `favorites` (`user_id`, `game_id`)
-												VALUES (".$user_id['id'].", 1);";
+												VALUES (".$uid.", 1);";
 						$add_favorite_result = mysql_query($add_favorite_query);
 					}
 
-					$fav_select_query = "SELECT * FROM `favorites` WHERE `game_id` = 1 AND `user_id` = ".$user_id['id']." limit 1;";
+					$fav_select_query = "SELECT * FROM `favorites` WHERE `game_id` = 1 AND `user_id` = ".$uid." limit 1;";
 					$fav_select_result = mysql_query($fav_select_query);
 					if($row = mysql_fetch_assoc($fav_select_result)) {
 						echo '
@@ -140,7 +140,7 @@
 					</div>';
 					if(isset($_POST['send_comment'])) {
 						$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
-																		VALUES (1, ".$user_id['id'].", '".$_POST['comment_text']."');";
+																		VALUES (1, ".$uid.", '".$_POST['comment_text']."');";
 						$add_com_result = mysql_query($add_comment_query);
 					}
 				}
