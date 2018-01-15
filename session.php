@@ -9,6 +9,7 @@ if (isset($_SESSION['loggedin'])) {
         $user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
         $user_id = mysql_fetch_assoc($user_result);
         $uid = $user_id['id'];
+        $login = $_SESSION['login'];
     }
 }
 ?>

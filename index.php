@@ -19,7 +19,7 @@
 
 		<?php
 
-		$loginmessage = "";
+		$signinmessage = "";
 
 		if (isset($_GET['logout']))
 		{
@@ -36,25 +36,25 @@
 
 		if (isset($_POST['signin']))
 		{
-			$login = filter($_POST['login']);
+			$logininput = filter($_POST['login']);
 			$password = filter($_POST['password']);
 			$ip = filter($_SERVER['REMOTE_ADDR']);
 
-			if (mysql_num_rows(mysql_query("SELECT login, password FROM users WHERE login = '".$login."' AND password = '".md5($password)."';")) > 0)
+			if (mysql_num_rows(mysql_query("SELECT login, password FROM users WHERE login = '".$logininput."' AND password = '".md5($password)."';")) > 0)
 			{
-				mysql_query("UPDATE `users` SET (`last_login` = '".time().", `ip` = '".$ip."'') WHERE login = '".$login."';");
+				mysql_query("UPDATE `users` SET (`last_login` = '".time().", `ip` = '".$ip."'') WHERE login = '".$logininput."';");
 
-				$group_id_query = "SELECT group_id FROM users WHERE login = '".$login."' limit 1;";
+				$group_id_query = "SELECT group_id FROM users WHERE login = '".$logininput."' limit 1;";
 				$gid_result = mysql_query($group_id_query);
 				$row = mysql_fetch_assoc($gid_result);
 
 				$_SESSION['loggedin'] = true;
-				$_SESSION['login'] = $login;
+				$_SESSION['login'] = $logininput;
 				$_SESSION['group_id'] = $row['group_id'];
 
 			}
 			// else echo "Wpisany login i/lub hasło są niepoprawne.";
-			else $loginmessage = "<br>Wpisany login i/lub hasło są niepoprawne.";
+			else $signinmessage = "<br>Wpisany login i/lub hasło są niepoprawne.";
 		}
 
 		include "navbar.php";
@@ -70,6 +70,7 @@
 				{
 					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
 			        $user_id = mysql_fetch_assoc($user_result);
+					$uid = $user_id['id'];
 
 					echo '
 					<h1>Witaj, '.$_SESSION['login'].'!</h1>
@@ -141,7 +142,7 @@
 					    <input type="password" class="form-control" name="password" placeholder="Hasło">
 					  </div>
 					  <button type="submit" class="btn btn-primary" name="signin">Zaloguj się</button>
-					</form>'.$loginmessage.'
+					</form>'.$signinmessage.'
 
 					<br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
 					';

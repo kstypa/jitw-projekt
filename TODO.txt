@@ -4,9 +4,7 @@ funkcjonalność:
     /dodać gierki
     zapisywanie wyników
     //profile
-        zdjęcia profilowe?
     komunikator
-    ??edycja komentarzy w panelu administracyjnym
 
 wygląd:
     responsywność

@@ -50,18 +50,18 @@
 
       if (isset($_POST['signup']))
       {
-      	$login = filter($_POST['login']);
+      	$logininput = filter($_POST['login']);
       	$password1 = filter($_POST['password1']);
       	$password2 = filter($_POST['password2']);
       	$email = filter($_POST['email']);
       	$ip = filter($_SERVER['REMOTE_ADDR']);
 
-      	if (mysql_num_rows(mysql_query("SELECT login FROM users WHERE login = '".$login."';")) == 0)
+      	if (mysql_num_rows(mysql_query("SELECT login FROM users WHERE login = '".$logininput."';")) == 0)
       	{
       		if ($password1 == $password2)
       		{
       			mysql_query("INSERT INTO `users` (`login`, `password`, `email`, `registered`, `last_login`, `ip`)
-      				VALUES ('".$login."', '".md5($password1)."', '".$email."', '".time()."', '".time()."', '".$ip."');");
+      				VALUES ('".$logininput."', '".md5($password1)."', '".$email."', '".time()."', '".time()."', '".$ip."');");
 
       			echo "Konto zostało utworzone!";
       		}
