@@ -50,8 +50,9 @@
 					echo '<h2>Możesz grać!</h2>';
 					echo '
                         <div class="embed-responsive embed-responsive-4by3">
-                            <iframe class="embed-responsive-item gameframe" src="'.$path.'" ></iframe>
+                            <iframe id="ifr" class="embed-responsive-item gameframe" src="'.$path.'" ></iframe>
                         </div>
+						<span id="scorespan">0</span>
 						';
 				}
 			}

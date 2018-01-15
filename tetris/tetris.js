@@ -397,6 +397,7 @@ ctx.strokeRect(x*dx, y*dy, dx, dy)
 // score upload
 function uploadScore() {
     html('finalscore', Math.floor(vscore));
+    window.parent.document.getElementById('scorespan').innerHTML = Math.floor(vscore);
 }
 
 //-------------------------------------------------------------------------
