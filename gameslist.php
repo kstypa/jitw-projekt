@@ -22,29 +22,24 @@
 		<div class="container-fluid col-md-8 main">
 
 			<?php
-			$rating = [0, 0, 0, 0, 0];
-			for ($i = 0; $i < 5; ++$i) {
-				$rating_query = "SELECT rating FROM ratings WHERE game_id = $i+1";
-				$rating_result = mysql_query($rating_query);
-				$sum = 0;
-				$n = 0;
-				while($row = mysql_fetch_assoc($rating_result)) {
-					++$n;
-					$sum += $row['rating'];
+
+			function average($id) {
+				$avg_result = mysql_query("SELECT AVG(`rating`) as `avg` FROM `ratings` WHERE `game_id` = ".$id.";");
+				if($row = mysql_fetch_assoc($avg_result)) {
+					return round($row['avg'], 1);
 				}
-				if($n == 0) $n = 1;
-				$rating[$i] = $sum / $n;
+				else return "0";
 			}
 
 			?>
 
 			<h1>Lista gier</h1>
 			<ul>
-				<li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo $rating[0] ?></li>
-				<li><a href="">Wisielec</a> ocena użytkowników: <?php echo $rating[1] ?></li>
-				<li><a href="">Space Invaders</a> ocena użytkowników: <?php echo $rating[2] ?></li>
-				<li><a href="">Arkanoid</a> ocena użytkowników: <?php echo $rating[3] ?></li>
-				<li><a href="tetris.php">Tetris</a> ocena użytkowników: <?php echo $rating[4] ?></li>
+				<li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo average(1); ?></li>
+				<li><a href="">Wisielec</a> ocena użytkowników: <?php echo average(2); ?></li>
+				<li><a href="">Space Invaders</a> ocena użytkowników: <?php echo average(3); ?></li>
+				<li><a href="">Arkanoid</a> ocena użytkowników: <?php echo average(4); ?></li>
+				<li><a href="game.php?id=5">Tetris</a> ocena użytkowników: <?php echo average(5); ?></li>
 			</ul>
 
 

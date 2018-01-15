@@ -87,21 +87,27 @@
                                                 ORDER BY B.id ASC";
                     $fav_select_result = mysql_query($fav_select_query);
 					$favcounter = 0;
+					echo '<br><div class="card-deck" style="height:18rem">';
                     while($row = mysql_fetch_assoc($fav_select_result)) {
-						echo '<br>
-						<div class="card" style="width: 15rem;">
+						echo '
+						<div class="card">
 							<img class="card-img-top" src="'.$row['thumbnail'].'" alt="Game thumbnail">
 							<div class="card-body">
 								<h4 class="card-title">'.$row['game'].'</h4>
 								<p class="card-text">'.$row['description'].'</p>
-						    	<a href="'.$row['url'].'" class="btn btn-primary">Przejdź</a>
+
 							</div>
-						</div><br><br>';
+							<div class="card-footer">
+								<a href="game.php?id='.$row['game_id'].'" class="btn btn-primary">Przejdź</a>
+							</div>
+						</div>';
 						$favcounter++;
                     }
+					echo '</div>';
 					if($favcounter == 0) {
-						echo 'Nie masz żadnych ulubionych gier! Dodaj jakieś klikając przycisk na stronie gry!<br><br>';
+						echo 'Nie masz żadnych ulubionych gier! Dodaj jakieś klikając przycisk na stronie gry!';
 					}
+					echo '<br><br>';
 
 					echo '
 					<ul>
