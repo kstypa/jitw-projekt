@@ -12,4 +12,9 @@ if (isset($_SESSION['loggedin'])) {
         $login = $_SESSION['login'];
     }
 }
+
+function redirect($url, $statusCode = 303) {
+   header('Location: ' . $url, true, $statusCode);
+   die();
+}
 ?>

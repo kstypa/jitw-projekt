@@ -1,11 +1,6 @@
 <?php
 	require_once "session.php";
 
-	function redirect($url, $statusCode = 303) {
-	   header('Location: ' . $url, true, $statusCode);
-	   die();
-	}
-
 	if(!isset($_SESSION['loggedin']) and !isset($_GET['id'])) {
 		redirect('./');
 	}
