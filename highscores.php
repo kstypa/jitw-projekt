@@ -19,78 +19,137 @@
 
 		<?php include "navbar.php"; ?>
 
-		<div class="container-fluid col-md-8 main">
-      <h1>Najlepsi gracze</h1>
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="logo"></div>
 
-      <h2>Snake</h2>
-      <?php
-      $i = 1;
-      $score_query = "SELECT A.score, B.login as username
-                          FROM scores A
-                          Join users B
-                          on B.id = A.user_id
-                          WHERE A.game_id = 1
-                          ORDER BY A.score DESC";
-      $score_result = mysql_query($score_query);
-      while($row = mysql_fetch_assoc($score_result)) {
-        echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-        ++$i;
-      }
-      ?>
+					<?php
 
-      <br>
-      <h2>Wisielec</h2>
-      <?php
-      $i = 1;
-      $score_query = "SELECT A.score, B.login as username
-                          FROM scores A
-                          Join users B
-                          on B.id = A.user_id
-                          WHERE A.game_id = 2
-                          ORDER BY A.score DESC";
-      $score_result = mysql_query($score_query);
-      while($row = mysql_fetch_assoc($score_result)) {
-        echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-        ++$i;
-      }
-      ?>
+					if(isset($_SESSION['loggedin'])) {
+						if ($_SESSION['loggedin']) {
+							echo '
+							<div class="list-group">
+								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action active" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
 
-      <br>
-      <h2>Space Invaders</h2>
-      <?php
-      $i = 1;
-      $score_query = "SELECT A.score, B.login as username
-                          FROM scores A
-                          Join users B
-                          on B.id = A.user_id
-                          WHERE A.game_id = 3
-                          ORDER BY A.score DESC";
-      $score_result = mysql_query($score_query);
-      while($row = mysql_fetch_assoc($score_result)) {
-        echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-        ++$i;
-      }
-      ?>
+							if($_SESSION['group_id'] == 1) {
+								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+							}
 
-      <br>
-      <h2>Arkanoid</h2>
-      <?php
-      $i = 1;
-      $score_query = "SELECT A.score, B.login as username
-                          FROM scores A
-                          Join users B
-                          on B.id = A.user_id
-                          WHERE A.game_id = 4
-                          ORDER BY A.score DESC";
-      $score_result = mysql_query($score_query);
-      while($row = mysql_fetch_assoc($score_result)) {
-        echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-        ++$i;
-      }
-      ?>
+							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							</div></div>';
+						}
+					}
+					else {
+						echo '
+						<div class="list-group">
+							<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+							<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+							<a class="list-group-item list-group-item-action active" href="./highscores.php">Najlepsi gracze</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+							<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>
+						</div>
+					</div>';
+					}
+					?>
+					<div class="col-md-9">
 
-      <br>
+						<h1>Najlepsi gracze</h1>
 
+						<h2>Snake</h2>
+						<?php
+						$i = 1;
+						$score_query = "SELECT A.score, B.login as username
+						FROM scores A
+						Join users B
+						on B.id = A.user_id
+						WHERE A.game_id = 1
+						ORDER BY A.score DESC";
+						$score_result = mysql_query($score_query);
+						while($row = mysql_fetch_assoc($score_result)) {
+							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
+							++$i;
+						}
+						?>
+
+						<br>
+						<h2>Outrun</h2>
+						<?php
+						$i = 1;
+						$score_query = "SELECT A.score, B.login as username
+						FROM scores A
+						Join users B
+						on B.id = A.user_id
+						WHERE A.game_id = 2
+						ORDER BY A.score DESC";
+						$score_result = mysql_query($score_query);
+						while($row = mysql_fetch_assoc($score_result)) {
+							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
+							++$i;
+						}
+						?>
+
+						<br>
+						<h2>Delta</h2>
+						<?php
+						$i = 1;
+						$score_query = "SELECT A.score, B.login as username
+						FROM scores A
+						Join users B
+						on B.id = A.user_id
+						WHERE A.game_id = 3
+						ORDER BY A.score DESC";
+						$score_result = mysql_query($score_query);
+						while($row = mysql_fetch_assoc($score_result)) {
+							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
+							++$i;
+						}
+						?>
+
+						<br>
+						<h2>Arkanoid</h2>
+						<?php
+						$i = 1;
+						$score_query = "SELECT A.score, B.login as username
+						FROM scores A
+						Join users B
+						on B.id = A.user_id
+						WHERE A.game_id = 4
+						ORDER BY A.score DESC";
+						$score_result = mysql_query($score_query);
+						while($row = mysql_fetch_assoc($score_result)) {
+							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
+							++$i;
+						}
+						?>
+
+						<br>
+						<h2>Tetris</h2>
+						<?php
+						$i = 1;
+						$score_query = "SELECT A.score, B.login as username
+						FROM scores A
+						Join users B
+						on B.id = A.user_id
+						WHERE A.game_id = 5
+						ORDER BY A.score DESC";
+						$score_result = mysql_query($score_query);
+						while($row = mysql_fetch_assoc($score_result)) {
+							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
+							++$i;
+						}
+						?>
+
+						<br>
+					</div>
+				</div>
     </div>
 
 	<?php include './footer.html'; ?>

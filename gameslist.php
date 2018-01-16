@@ -49,9 +49,9 @@
 					else {
 						echo '
 						<div class="list-group">
-							<a class="list-group-item list-group-item-action active" href="./">Strona główna</a>
+							<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
 							<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
-							<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+							<a class="list-group-item list-group-item-action active" href="./gameslist.php">Lista gier</a>
 							<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
 							<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
 							<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>
