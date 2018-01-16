@@ -63,7 +63,7 @@
 		<div class="container col-md-8 px-4 main">
 			<div class="row">
 				<div class="col-md-3">
-				<div class="logo"></div>
+					<div class="logo"></div>
 
 
 			<?php
@@ -151,31 +151,54 @@
 			}
 
 			if (!isset($_SESSION['loggedin'])){
-					echo '
-					<h1>Witaj, gościu!</h1>
-					<p>W tej chwili jako niezalogowany użytkownik możesz:</p>
-					<ul>
-						<li><a href="./gameslist.php">Przeglądać listę gier wraz z ich opisami</a></li>
-						<li><a href="./gameslist.php#popularity">Sprawdzić, które gry są najpopularniejsze</a></li>
-						<li><a href="./highscores.php">Zobaczyć ranking najlepszych graczy</a></li>
-						<li><a href="./userslist.php">Spojrzeć na listę użytkowników i ich profile</a></li>
-					</ul>
 
-					<form class="col-md-4" action="index.php" method="POST">
-						<h2>Logowanie</h2>
-					  <div class="form-group">
-					    <label for="login">Nazwa użytkownika</label>
-					    <input type="text" class="form-control" name="login" placeholder="Podaj swój login">
-					  </div>
-					  <div class="form-group">
-					    <label for="password">Hasło</label>
-					    <input type="password" class="form-control" name="password" placeholder="Hasło">
-					  </div>
-					  <button type="submit" class="btn btn-primary" name="signin">Zaloguj się</button>
-					</form>'.$signinmessage.'
+				echo '
+				<div class="list-group">
+					<a class="list-group-item list-group-item-action active" href="./">Strona główna</a>
+					<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
+					<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+					<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+					<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+					<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<h1>Witaj, gościu!</h1><br>
 
-					<br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
-					';
+
+				<form action="index.php" method="POST" style="width:18rem">
+					<h3>Zaloguj się</h3>
+				  <div class="form-group">
+				    <label for="login">Nazwa użytkownika</label>
+				    <input type="text" class="form-control" name="login" placeholder="Podaj swój login">
+				  </div>
+				  <div class="form-group">
+				    <label for="password">Hasło</label>
+				    <input type="password" class="form-control" name="password" placeholder="Hasło">
+				  </div>
+				  <button type="submit" class="btn btn-primary" name="signin">Zaloguj się</button>
+				</form>'.$signinmessage.'
+
+				<br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br><br>
+
+				<h3>Zapraszamy do zabawy!</h3>
+				<p class="text-justify">Nasza strona oferuje rozrywkę, jakiej szukałeś! Zagraj za darmo w świetne gry online takie, jak Snake, Tetris czy Arkanoid!
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut quam et tellus gravida maximus. Sed vitae vulputate eros, non rutrum ex.
+					Phasellus iaculis vehicula turpis quis posuere. Quisque non cursus enim. Aenean lobortis ornare pellentesque.
+					Proin ullamcorper purus id est efficitur convallis. Proin interdum laoreet augue, ut placerat est pharetra a.
+					In eleifend nulla sit amet urna maximus pharetra. Curabitur iaculis augue nec gravida scelerisque.
+					Integer mattis augue ut justo gravida fermentum. Phasellus in dolor nibh.</p>
+				<p class="text-justify">
+					Donec sed magna turpis. Etiam finibus congue tortor ut rhoncus. Aenean egestas felis purus, eget mollis ex sodales ac.
+					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+					Nullam a erat sagittis, scelerisque tellus eu, cursus orci. Fusce non sollicitudin diam, eget rhoncus est.
+					Donec mollis vulputate ligula vitae congue. Sed rhoncus magna eget condimentum pharetra. Fusce dapibus massa quam,
+					nec congue ipsum efficitur et. Mauris porta eros non nisl iaculis vulputate. Ut mi arcu, finibus vel mollis eu,
+					placerat a metus. Suspendisse potenti. Proin tincidunt nisi et ex sollicitudin, ac tempus diam eleifend.
+					Praesent viverra malesuada ornare. Pellentesque et velit lectus.</p>
+
+				</div>
+				';
 			}
 			?>
 			</div>

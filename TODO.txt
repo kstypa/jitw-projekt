@@ -13,4 +13,4 @@ wygląd:
     lista użytkowników - tabela
     panel administracyjny - komentarze
     ogólny styl - kolory, itd.
-    logo?
+    
