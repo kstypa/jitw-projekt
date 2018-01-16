@@ -52,11 +52,11 @@
 
 					<h2>Zarządzaj komentarzami:</h2>
 					<div class="list-group">
-						<a class="list-group-item list-group-item-action" href="profile.php?id=1">Snake</a>
-						<a class="list-group-item list-group-item-action" href="profile.php?id=2">Outrun</a>
-						<a class="list-group-item list-group-item-action" href="profile.php?id=3">Delta</a>
-						<a class="list-group-item list-group-item-action" href="profile.php?id=4">Arkanoid</a>
-						<a class="list-group-item list-group-item-action" href="profile.php?id=5">Tetris</a>
+						<a class="list-group-item list-group-item-action" href="admin.php?game_id=1">Snake</a>
+						<a class="list-group-item list-group-item-action" href="admin.php?game_id=2">Outrun</a>
+						<a class="list-group-item list-group-item-action" href="admin.php?game_id=3">Delta</a>
+						<a class="list-group-item list-group-item-action" href="admin.php?game_id=4">Arkanoid</a>
+						<a class="list-group-item list-group-item-action" href="admin.php?game_id=5">Tetris</a>
 					</div><br>
 
 					<?php
