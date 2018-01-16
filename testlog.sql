@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 16 Sty 2018, 07:30
+-- Host: localhost
+-- Czas generowania: 16 Sty 2018, 12:41
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 5.6.32
 
@@ -42,12 +42,12 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `game_id`, `user_id`, `timestamp`, `text`) VALUES
-(1, 1, 5, '2017-11-24 04:04:51', 'Super gra!'),
 (2, 1, 3, '2017-11-24 03:44:27', 'Dobra zabawa blin'),
 (3, 1, 4, '2017-11-24 03:44:45', 'Rush B!'),
 (4, 4, 6, '2017-11-24 04:08:25', 'Yeah!'),
 (10, 1, 1, '2017-12-18 03:21:28', 'test2'),
-(11, 5, 3, '2018-01-15 01:34:33', 'test');
+(11, 5, 3, '2018-01-15 01:34:33', 'test'),
+(13, 5, 3, '2018-01-16 11:36:29', 'asdasdsa');
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,6 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`id`, `user_id`, `game_id`) VALUES
 (2, 3, 1),
-(3, 3, 5),
 (4, 3, 2),
 (7, 1, 2);
 
@@ -120,11 +119,11 @@ CREATE TABLE `games` (
 --
 
 INSERT INTO `games` (`id`, `name`, `play_count`, `description`, `path`, `thumbnail`, `image1`, `image2`) VALUES
-(1, 'Snake', 43, 'Klasyczna gra o wężu. Zjadaj kolejne kropki i zdobywaj punkty!', './games/snake/index.html', 'img/snakethumb.png', 'img/snake1.png', ''),
-(2, 'Outrun', 10, 'Jedź szybkim samochodem po autostradzie, omijaj innych kierowców i podziwiaj widoki. Jeśli zagrywałeś się w automatowego klasyka Segi, poczujesz się jak w domu!', './games/outrun/index.html', 'img/outrunthumb.png', 'img/outrun1.png', ''),
-(3, 'Delta', 10, 'Niezwykle szybki i wymagający shmup. Zestrzel swoich wrogów i nie daj się zabić!', './games/delta/index.html', 'img/deltathumb.png', 'img/delta1.png', ''),
-(4, 'Arkanoid', 21, 'Odbijaj piłkę, by niszczyć kolejne klocki. Uważaj, aby nie spadła!', './games/breakout/index.html', 'img/arkanoidthumb.png', 'img/arkanoid1.png', ''),
-(5, 'Tetris', 102, 'Układaj spadające klocki i zdobądź jak najwięcej punktów!', './games/tetris/index.html', 'img/tetristhumb.png', 'img/tetris1.png', '');
+(1, 'Snake', 57, 'Klasyczna gra o wężu. Zjadaj kolejne kropki i zdobywaj punkty!', './games/snake/index.html', 'img/snakethumb.png', 'img/snake1.png', ''),
+(2, 'Outrun', 12, 'Jedź szybkim samochodem po autostradzie, omijaj innych kierowców i podziwiaj widoki. Jeśli zagrywałeś się w automatowego klasyka Segi, poczujesz się jak w domu!', './games/outrun/index.html', 'img/outrunthumb.png', 'img/outrun1.png', ''),
+(3, 'Delta', 12, 'Niezwykle szybki i wymagający shmup. Zestrzel swoich wrogów i nie daj się zabić!', './games/delta/index.html', 'img/deltathumb.png', 'img/delta1.png', ''),
+(4, 'Arkanoid', 24, 'Odbijaj piłkę, by niszczyć kolejne klocki. Uważaj, aby nie spadła!', './games/breakout/index.html', 'img/arkanoidthumb.png', 'img/arkanoid1.png', ''),
+(5, 'Tetris', 113, 'Układaj spadające klocki i zdobądź jak najwięcej punktów!', './games/tetris/index.html', 'img/tetristhumb.png', 'img/tetris1.png', '');
 
 -- --------------------------------------------------------
 
@@ -156,7 +155,7 @@ INSERT INTO `ratings` (`id`, `game_id`, `user_id`, `rating`) VALUES
 (9, 4, 6, 5),
 (10, 4, 2, 4),
 (11, 1, 6, 5),
-(12, 5, 3, 5);
+(12, 5, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -188,7 +187,7 @@ INSERT INTO `scores` (`id`, `game_id`, `user_id`, `timestamp`, `score`) VALUES
 (8, 2, 4, '2017-11-24 03:42:17', 500),
 (9, 3, 3, '2017-11-24 03:42:52', 65000),
 (10, 3, 7, '2017-11-24 03:42:52', 70000),
-(11, 5, 3, '2018-01-16 00:18:44', 200);
+(11, 5, 3, '2018-01-16 11:37:11', 220);
 
 -- --------------------------------------------------------
 
@@ -305,13 +304,13 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT dla tabeli `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT dla tabeli `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `friends`
