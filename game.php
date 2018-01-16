@@ -17,6 +17,14 @@
 			redirect('./gameslist.php');
 		}
 	}
+
+	if (!isset($_SESSION['loggedin'])) {
+		$style = 0;
+		$btncolor = "btn-primary";
+		$cardcolor = "";
+		$listcolor = "";
+		$badgecolor = "badge-primary";
+	}
 ?>
 
 <!DOCTYPE html>

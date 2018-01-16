@@ -5,15 +5,47 @@
 		if ($_SESSION['loggedin']) {
 			if(isset($_GET['changestyle'])) {
 				if($_GET['changestyle'] == "1") {
+					$user_result = mysql_query("SELECT * from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+			        $user_id = mysql_fetch_assoc($user_result);
+			        $style = $user_id['style'];
 					if($style == 1) {
 						mysql_query("UPDATE users SET style = 0 WHERE id = ".$uid.";");
 					}
 					else {
 						mysql_query("UPDATE users SET style = 1 WHERE id = ".$uid.";");
 					}
+					$user_result = mysql_query("SELECT * from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+			        $user_id = mysql_fetch_assoc($user_result);
+			        $style = $user_id['style'];
+					if($style == 1) {
+			            $btncolor = "btn-danger";
+			            $cardcolor = "card-dark bg-dark";
+			            $listcolor = "list-group-item-dark";
+			            $badgecolor = "badge-danger";
+			        }
+			        else {
+			            $btncolor = "btn-primary";
+			            $cardcolor = "";
+			            $listcolor = "";
+			            $badgecolor = "badge-primary";
+			        }
 				}
 			}
 		}
+	}
+	if (!isset($_SESSION['loggedin'])) {
+		$style = 0;
+		$btncolor = "btn-primary";
+		$cardcolor = "";
+		$listcolor = "";
+		$badgecolor = "badge-primary";
+	}
+	if (isset($_GET['logout'])) {
+		$style = 0;
+		$btncolor = "btn-primary";
+		$cardcolor = "";
+		$listcolor = "";
+		$badgecolor = "badge-primary";
 	}
 ?>
 

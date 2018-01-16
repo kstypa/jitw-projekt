@@ -5,17 +5,24 @@ if(isset($_SESSION['loggedin'])) {
         $user_id = mysql_fetch_assoc($user_result);
         $uid = $user_id['id'];
         $login = $_SESSION['login'];
+        if($style == 1) {
+            $color = "navbar-dark bg-dark";
+        }
+        else {
+            $color = "navbar-light bg-light";
+        }
     }
-}
-?>
-
-<?php
-if($style == 1) {
-    $color = "navbar-dark bg-dark";
+    else {
+        $color = "navbar-light bg-light";
+    }
 }
 else {
     $color = "navbar-light bg-light";
 }
+?>
+
+<?php
+
 ?>
 
 <nav class="navbar navbar-expand-lg <?php echo $color; ?>">

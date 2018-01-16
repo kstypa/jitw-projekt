@@ -1,5 +1,13 @@
 <?php
 	require_once "session.php";
+
+	if (!isset($_SESSION['loggedin'])) {
+		$style = 0;
+		$btncolor = "btn-primary";
+		$cardcolor = "";
+		$listcolor = "";
+		$badgecolor = "badge-primary";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +88,7 @@
 								}
 
 								echo '
-								<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
+								<button class="btn '.$btncolor.'" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
 								Dodaj komentarz
 								</button><br><br>
 								<div class="collapse" id="commentForm">
@@ -88,7 +96,7 @@
 								<div class="form-group">
 								<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
 								</div>
-								<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
+								<button type="submit" class="btn '.$btncolor.'" name="send_comment">Wyślij</button>
 								</form><br>
 								</div>';
 								if(isset($_POST['send_comment'])) {
@@ -105,7 +113,7 @@
 								ORDER BY A.timestamp DESC";
 								$com_result = mysql_query($comments_query);
 								while($row = mysql_fetch_assoc($com_result)) {
-									echo '<div class="card m-2" style="">
+									echo '<div class="card '.$cardcolor.' m-2" style="">
 										  	<div class="card-body">
 												<h5 class="card-title">'.$row['username'].'</h5>
 												<h6 class="card-subtitle mb-1 text-muted">'.$row['timestamp'].'</h6>
