@@ -19,70 +19,107 @@
 
 		<?php include "navbar.php"; ?>
 
-		<div class="container-fluid col-md-8 main">
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="logo"></div>
 
-			<h1>Panel administracyjny</h1>
+					<?php
 
-			<h2>Zarządzaj komentarzami:</h2>
-	        <ul>
-				<li><a href="./admin.php?game_id=1">Snake</a></li>
-				<li><a href="./admin.php?game_id=2">Wisielec</a></li>
-				<li><a href="./admin.php?game_id=3">Space Invaders</a></li>
-				<li><a href="./admin.php?game_id=4">Arkanoid</a></li>
-	        </ul>
-
-			<?php
-			if(isset($_SESSION['loggedin'])) {
-				if($_SESSION['loggedin']) {
-					if(isset($_GET['game_id'])) {
-						if(isset($_POST['comment_id'])) {
-							// echo $_POST['comment_id'];
-							$delete_comment_query = "DELETE FROM `comments` WHERE id=".$_POST['comment_id']." limit 1;";
-							$delete_comment_result = mysql_query($delete_comment_query);
-							if($delete_comment_result) {
-								echo "Usunięto komentarz o id = ".$_POST['comment_id']."<br><br>";
-							}
-						}
-
-						echo '
-						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
-							Dodaj komentarz
-						</button><br><br>
-						<div class="collapse" id="commentForm">
-							<form class="col-md-12" action="admin.php?game_id='.$_GET['game_id'].'" method="post">
-								<div class="form-group">
-									<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
-								</div>
-								<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
-							</form><br>
-						</div>';
-						if(isset($_POST['send_comment'])) {
-							$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
-							VALUES (".$_GET['game_id'].", ".$uid.", '".$_POST['comment_text']."');";
-							$add_com_result = mysql_query($add_comment_query);
-						}
-
-						$comments_query = "SELECT A.id, A.timestamp, A.text, B.login as username
-						FROM comments A
-						Join users B
-						on B.id = A.user_id
-						WHERE A.game_id = ".$_GET['game_id']."
-						ORDER BY A.timestamp DESC";
-						$com_result = mysql_query($comments_query);
-						while($row = mysql_fetch_assoc($com_result)) {
-							echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br>';
+					if(isset($_SESSION['loggedin'])) {
+						if ($_SESSION['loggedin']) {
 							echo '
-							<form action="admin.php?game_id='.$_GET['game_id'].'" method="post">
-							<button type="submit" name="comment_id" value="'.$row['id'].'" class="btn btn-danger">Usuń</button>
-							</form>
-							<br><br>';
+							<div class="list-group">
+								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+
+							if($_SESSION['group_id'] == 1) {
+								echo '<a class="list-group-item list-group-item-action active" href="./admin.php">Panel administracyjny</a>';
+							}
+
+							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							</div></div>';
 						}
 					}
-				}
-			}
+					?>
+				<div class="col-md-9">
+					<h1>Panel administracyjny</h1>
+
+					<h2>Zarządzaj komentarzami:</h2>
+					<div class="list-group">
+						<a class="list-group-item list-group-item-action" href="profile.php?id=1">Snake</a>
+						<a class="list-group-item list-group-item-action" href="profile.php?id=2">Outrun</a>
+						<a class="list-group-item list-group-item-action" href="profile.php?id=3">Delta</a>
+						<a class="list-group-item list-group-item-action" href="profile.php?id=4">Arkanoid</a>
+						<a class="list-group-item list-group-item-action" href="profile.php?id=5">Tetris</a>
+					</div><br>
+
+					<?php
+					if(isset($_SESSION['loggedin'])) {
+						if($_SESSION['loggedin']) {
+							if(isset($_GET['game_id'])) {
+								if(isset($_POST['comment_id'])) {
+									// echo $_POST['comment_id'];
+									$delete_comment_query = "DELETE FROM `comments` WHERE id=".$_POST['comment_id']." limit 1;";
+									$delete_comment_result = mysql_query($delete_comment_query);
+									if($delete_comment_result) {
+										echo "Usunięto komentarz o id = ".$_POST['comment_id']."<br><br>";
+									}
+								}
+
+								echo '
+								<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
+								Dodaj komentarz
+								</button><br><br>
+								<div class="collapse" id="commentForm">
+								<form class="col-md-12" action="admin.php?game_id='.$_GET['game_id'].'" method="post">
+								<div class="form-group">
+								<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
+								</form><br>
+								</div>';
+								if(isset($_POST['send_comment'])) {
+									$add_comment_query = "INSERT INTO `comments` (`game_id`, `user_id`, `text`)
+									VALUES (".$_GET['game_id'].", ".$uid.", '".$_POST['comment_text']."');";
+									$add_com_result = mysql_query($add_comment_query);
+								}
+
+								$comments_query = "SELECT A.id, A.timestamp, A.text, B.login as username
+								FROM comments A
+								Join users B
+								on B.id = A.user_id
+								WHERE A.game_id = ".$_GET['game_id']."
+								ORDER BY A.timestamp DESC";
+								$com_result = mysql_query($comments_query);
+								while($row = mysql_fetch_assoc($com_result)) {
+									echo '<div class="card m-2" style="">
+										  	<div class="card-body">
+												<h5 class="card-title">'.$row['username'].'</h5>
+												<h6 class="card-subtitle mb-1 text-muted">'.$row['timestamp'].'</h6>
+											  	<p class="card-text">'.$row['text'].'</p>
+										  	</div>
+											<div class="card-footer">
+												<form action="admin.php?game_id='.$_GET['game_id'].'" method="post">
+													<button type="submit" name="comment_id" value="'.$row['id'].'" class="btn btn-danger">Usuń</button>
+												</form>
+											</div>
+										</div>';
+								}
+							}
+						}
+					}
+
+
 
 			?>
-
+			</div>
+		</div>
 		</div>
 
 		<?php include './footer.html'; ?>

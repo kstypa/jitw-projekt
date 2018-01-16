@@ -31,33 +31,74 @@
 
         ?>
 
-		<div class="container-fluid col-md-8 main">
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="logo"></div>
 
-			<h1>Lista użytkowników</h1><br>
+					<?php
 
-            <form class="col-md-10 offset-md-1" action="userslist.php" method="GET">
-                <label class="sr-only" for="username">Nazwa użytkownika</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="username" placeholder="Szukaj użytkowników">
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-primary" name="action" value="search">Szukaj</button>
-                    </div>
-                </div>
-            </form>
+					if(isset($_SESSION['loggedin'])) {
+						if ($_SESSION['loggedin']) {
+							echo '
+							<div class="list-group">
+								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action active" href="./userslist.php">Lista użytkowników</a>';
 
-            <?php
+							if($_SESSION['group_id'] == 1) {
+								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+							}
 
-            $userslist_select_query = "SELECT * FROM users WHERE login LIKE '%".$searchphrase."%';";
-            $userslist_select_result = mysql_query($userslist_select_query);
+							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							</div></div>';
+						}
+					}
+					else {
+						echo '
+						<div class="list-group">
+							<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+							<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+							<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+							<a class="list-group-item list-group-item-action active" href="./userslist.php">Lista użytkowników</a>
+						</div>
+					</div>';
+					}
+					?>
 
-            echo '<ul>';
-            while($row = mysql_fetch_assoc($userslist_select_result)) {
-                echo '<li><a href="profile.php?id='.$row['id'].'">'.$row['login'].'</a></li>';
-            }
-            echo '</ul>';
+					<div class="col-md-9">
+						<h1>Lista użytkowników</h1><br>
 
-            ?>
+						<form class="" action="userslist.php" method="GET">
+							<label class="sr-only" for="username">Nazwa użytkownika</label>
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" name="username" placeholder="Szukaj użytkowników">
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-primary" name="action" value="search">Szukaj</button>
+								</div>
+							</div>
+						</form>
 
+						<?php
+
+						$userslist_select_query = "SELECT * FROM users WHERE login LIKE '%".$searchphrase."%';";
+						$userslist_select_result = mysql_query($userslist_select_query);
+
+						echo '<div class="list-group">';
+						while($row = mysql_fetch_assoc($userslist_select_result)) {
+							echo '<a class="list-group-item list-group-item-action" href="profile.php?id='.$row['id'].'">'.$row['login'].'</a>';
+						}
+						echo '</div>';
+
+						?>
+					</div>
+				</div>
     	</div>
 
 		<?php include './footer.html'; ?>

@@ -36,115 +36,181 @@
 
 		<?php include "navbar.php"; ?>
 
-		<div class="container-fluid col-md-8 main">
-    		<?php
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="logo"></div>
 
-			$username_query = "SELECT login FROM users WHERE id = ".$profile_id." limit 1;";
-			$username_result = mysql_query($username_query);
-			$username = mysql_fetch_assoc($username_result);
-			echo '<h1>Profil użytkownika '.$username['login'].'</h1><br>';
+					<?php
 
-    		if (isset($_SESSION['loggedin'])) {
-    			if ($_SESSION['loggedin']) {
-					if($profile_id != $uid) {
-						if(isset($_POST['delete_friend'])) {
-							$delete_friend_query1 = "DELETE FROM `friends`
-													WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
-							$delete_friend_result1 = mysql_query($delete_friend_query1);
-							$delete_friend_query2 = "DELETE FROM `friends`
-													WHERE `user2_id` = ".$uid." AND `user1_id` = ".$profile_id." limit 1;";
-							$delete_friend_result2 = mysql_query($delete_friend_query2);
-						}
-
-						if(isset($_POST['add_friend'])) {
-							$add_friend_query1 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
-													VALUES (".$uid.", ".$profile_id.");";
-							$add_friend_result1 = mysql_query($add_friend_query1);
-							$add_friend_query2 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
-													VALUES (".$profile_id.", ".$uid.");";
-							$add_friend_result2 = mysql_query($add_friend_query2);
-						}
-
-						$friends_select_query = "SELECT * FROM `friends` WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
-						$friends_select_result = mysql_query($friends_select_query);
-						if($row = mysql_fetch_assoc($friends_select_result)) {
+					if(isset($_SESSION['loggedin'])) {
+						if ($_SESSION['loggedin']) {
 							echo '
-								<form action="profile.php?id='.$profile_id.'" method="post">
-									<button class="btn btn-primary" type="submit" name="delete_friend">Usuń ze znajomych</button>
-								</form>';
-						}
-						else {
-							echo '
-								<form action="profile.php?id='.$profile_id.'" method="post">
-									<button class="btn btn-primary" type="submit" name="add_friend">Dodaj do znajomych</button>
-								</form>';
+							<div class="list-group">
+								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action active" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+
+							if($_SESSION['group_id'] == 1) {
+								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+							}
+
+							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							</div></div>';
 						}
 					}
-				}
-			}
-
-			?>
-
-			<br>
-            <h3>Ulubione gry</h3>
-            <?php
-            $fav_select_query = "SELECT A.game_id, B.name as game
-                                        FROM favorites A
-                                        JOIN games B
-                                        ON B.id = A.game_id
-                                        WHERE A.user_id = ".$profile_id."
-                                        ORDER BY B.id ASC";
-            $fav_select_result = mysql_query($fav_select_query);
-            while($row = mysql_fetch_assoc($fav_select_result)) {
-                echo $row['game'].'<br>';
-            }
-            ?><br>
-            <h3>Najlepsze wyniki</h3>
-            <?php
-            $scores_select_query = "SELECT A.score, B.name as game
-                                        FROM scores A
-                                        JOIN games B
-                                        ON B.id = A.game_id
-                                        WHERE A.user_id = ".$profile_id."
-                                        ORDER BY B.id ASC";
-            $scores_select_result = mysql_query($scores_select_query);
-            while($row = mysql_fetch_assoc($scores_select_result)) {
-                echo $row['game'].' -- '.$row['score'].'<br>';
-            }
-            ?>
-            <br>
-			<?php
-			if (isset($_SESSION['loggedin'])) {
-    			if ($_SESSION['loggedin']) {
-					if($profile_id == $uid) {
-
-						$friends_list_query = "SELECT A.user2_id as fid, B.login as name
-												FROM friends A
-												JOIN users B
-												ON B.id = A.user2_id
-												WHERE user1_id = ".$uid.";";
-						$friends_list_result = mysql_query($friends_list_query);
-						$friendscounter = 0;
-
+					else {
 						echo '
-						<h3 id="friends">Znajomi</h3>
-						<ul>';
-						while($row = mysql_fetch_assoc($friends_list_result)) {
-							$friendscounter++;
-							echo '<li><a href="profile.php?id='.$row['fid'].'">'.$row['name'].'</a></li>';
-						}
-						echo '</ul>';
-						if($friendscounter == 0) {
-							echo 'Nie masz jeszcze żadnych znajomych! Znajdź ich na <a href="./userslist.php">liście użytkowników</a>!';
-						}
+						<div class="list-group">
+							<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+							<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+							<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+							<a class="list-group-item list-group-item-action active" href="./userslist.php">Lista użytkowników</a>
+						</div>
+					</div>';
 					}
 					?>
-					<br>
-                    <?php
-                }
-            }
-            ?>
+					<div class="col-md-9">
 
+						<?php
+
+						$username_query = "SELECT login FROM users WHERE id = ".$profile_id." limit 1;";
+						$username_result = mysql_query($username_query);
+						$username = mysql_fetch_assoc($username_result);
+						echo '<h1>Profil użytkownika '.$username['login'].'</h1><br>';
+
+						if (isset($_SESSION['loggedin'])) {
+							if ($_SESSION['loggedin']) {
+								if($profile_id != $uid) {
+									if(isset($_POST['delete_friend'])) {
+										$delete_friend_query1 = "DELETE FROM `friends`
+										WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
+										$delete_friend_result1 = mysql_query($delete_friend_query1);
+										$delete_friend_query2 = "DELETE FROM `friends`
+										WHERE `user2_id` = ".$uid." AND `user1_id` = ".$profile_id." limit 1;";
+										$delete_friend_result2 = mysql_query($delete_friend_query2);
+									}
+
+									if(isset($_POST['add_friend'])) {
+										$add_friend_query1 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
+										VALUES (".$uid.", ".$profile_id.");";
+										$add_friend_result1 = mysql_query($add_friend_query1);
+										$add_friend_query2 = "INSERT INTO `friends` (`user1_id`, `user2_id`)
+										VALUES (".$profile_id.", ".$uid.");";
+										$add_friend_result2 = mysql_query($add_friend_query2);
+									}
+
+									$friends_select_query = "SELECT * FROM `friends` WHERE `user1_id` = ".$uid." AND `user2_id` = ".$profile_id." limit 1;";
+									$friends_select_result = mysql_query($friends_select_query);
+									if($row = mysql_fetch_assoc($friends_select_result)) {
+										echo '
+										<form action="profile.php?id='.$profile_id.'" method="post">
+										<button class="btn btn-primary" type="submit" name="delete_friend">Usuń ze znajomych</button>
+										</form>';
+									}
+									else {
+										echo '
+										<form action="profile.php?id='.$profile_id.'" method="post">
+										<button class="btn btn-primary" type="submit" name="add_friend">Dodaj do znajomych</button>
+										</form>';
+									}
+								}
+							}
+						}
+
+						?>
+
+						<br>
+						<h3>Ulubione gry</h3>
+						<?php
+						$fav_select_query = "SELECT A.game_id, B.thumbnail, B.description, B.name as game
+	                                                FROM favorites A
+	                                                JOIN games B
+	                                                ON B.id = A.game_id
+	                                                WHERE A.user_id = ".$profile_id."
+	                                                ORDER BY B.id ASC";
+	                    $fav_select_result = mysql_query($fav_select_query);
+						$favcounter = 0;
+						echo '<br><div class="row">';
+	                    while($row = mysql_fetch_assoc($fav_select_result)) {
+							echo '
+							<div class="card mx-1" style="width:15rem">
+								<img class="card-img-top" src="'.$row['thumbnail'].'" alt="Game thumbnail">
+								<div class="card-body">
+									<h4 class="card-title">'.$row['game'].'</h4>
+									<p class="card-text">'.$row['description'].'</p>
+
+								</div>
+								<div class="card-footer">
+									<a href="game.php?id='.$row['game_id'].'" class="btn btn-primary">Przejdź</a>
+								</div>
+							</div>';
+							$favcounter++;
+	                    }
+						echo '</div>';
+						if($favcounter == 0) {
+							echo 'Nie ma żadnych ulubionych gier!';
+						}
+						?><br>
+						<h3>Najlepsze wyniki</h3><br>
+						<?php
+						$scores_select_query = "SELECT A.score, B.name as game
+						FROM scores A
+						JOIN games B
+						ON B.id = A.game_id
+						WHERE A.user_id = ".$profile_id."
+						ORDER BY B.id ASC";
+						$scores_select_result = mysql_query($scores_select_query);
+						echo '<ul class="list-group">';
+						while($row = mysql_fetch_assoc($scores_select_result)) {
+							echo '
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+								    '.$row['game'].'
+								    <span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+							  	</li>';
+						}
+						echo '</ul>';
+						?>
+						<br>
+						<?php
+						if (isset($_SESSION['loggedin'])) {
+							if ($_SESSION['loggedin']) {
+								if($profile_id == $uid) {
+
+									$friends_list_query = "SELECT A.user2_id as fid, B.login as name
+									FROM friends A
+									JOIN users B
+									ON B.id = A.user2_id
+									WHERE user1_id = ".$uid.";";
+									$friends_list_result = mysql_query($friends_list_query);
+									$friendscounter = 0;
+
+									echo '
+									<h3 id="friends">Znajomi</h3><br>
+									<div class="list-group">';
+										while($row = mysql_fetch_assoc($friends_list_result)) {
+											$friendscounter++;
+											echo '<a class="list-group-item list-group-item-action" href="profile.php?id='.$row['fid'].'">'.$row['name'].'</a>';
+										}
+										echo '</div>';
+										if($friendscounter == 0) {
+											echo 'Nie masz jeszcze żadnych znajomych! Znajdź ich na <a href="./userslist.php">liście użytkowników</a>!';
+										}
+									}
+									?>
+									<br>
+									<?php
+								}
+							}
+							?>
+					</div>
+				</div>
         </div>
 
         <?php include './footer.html'; ?>

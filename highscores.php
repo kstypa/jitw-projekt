@@ -65,7 +65,6 @@
 
 						<h2>Snake</h2>
 						<?php
-						$i = 1;
 						$score_query = "SELECT A.score, B.login as username
 						FROM scores A
 						Join users B
@@ -73,16 +72,19 @@
 						WHERE A.game_id = 1
 						ORDER BY A.score DESC";
 						$score_result = mysql_query($score_query);
+						echo '<ul class="list-group">';
 						while($row = mysql_fetch_assoc($score_result)) {
-							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-							++$i;
+							echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+									'.$row['username'].'
+									<span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+								</li>';
 						}
+						echo '</ul>'
 						?>
 
 						<br>
 						<h2>Outrun</h2>
 						<?php
-						$i = 1;
 						$score_query = "SELECT A.score, B.login as username
 						FROM scores A
 						Join users B
@@ -90,16 +92,19 @@
 						WHERE A.game_id = 2
 						ORDER BY A.score DESC";
 						$score_result = mysql_query($score_query);
+						echo '<ul class="list-group">';
 						while($row = mysql_fetch_assoc($score_result)) {
-							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-							++$i;
+							echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+									'.$row['username'].'
+									<span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+								</li>';
 						}
+						echo '</ul>'
 						?>
 
 						<br>
 						<h2>Delta</h2>
 						<?php
-						$i = 1;
 						$score_query = "SELECT A.score, B.login as username
 						FROM scores A
 						Join users B
@@ -107,16 +112,19 @@
 						WHERE A.game_id = 3
 						ORDER BY A.score DESC";
 						$score_result = mysql_query($score_query);
+						echo '<ul class="list-group">';
 						while($row = mysql_fetch_assoc($score_result)) {
-							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-							++$i;
+							echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+									'.$row['username'].'
+									<span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+								</li>';
 						}
+						echo '</ul>'
 						?>
 
 						<br>
 						<h2>Arkanoid</h2>
 						<?php
-						$i = 1;
 						$score_query = "SELECT A.score, B.login as username
 						FROM scores A
 						Join users B
@@ -124,16 +132,19 @@
 						WHERE A.game_id = 4
 						ORDER BY A.score DESC";
 						$score_result = mysql_query($score_query);
+						echo '<ul class="list-group">';
 						while($row = mysql_fetch_assoc($score_result)) {
-							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-							++$i;
+							echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+									'.$row['username'].'
+									<span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+								</li>';
 						}
+						echo '</ul>'
 						?>
 
 						<br>
 						<h2>Tetris</h2>
 						<?php
-						$i = 1;
 						$score_query = "SELECT A.score, B.login as username
 						FROM scores A
 						Join users B
@@ -141,10 +152,14 @@
 						WHERE A.game_id = 5
 						ORDER BY A.score DESC";
 						$score_result = mysql_query($score_query);
+						echo '<ul class="list-group">';
 						while($row = mysql_fetch_assoc($score_result)) {
-							echo $i.'. '.$row['username'].' -- '.$row['score'].'<br>';
-							++$i;
+							echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+									'.$row['username'].'
+									<span class="badge badge-primary badge-pill">wynik: '.$row['score'].'</span>
+								</li>';
 						}
+						echo '</ul>'
 						?>
 
 						<br>

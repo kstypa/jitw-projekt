@@ -215,7 +215,6 @@
 			                  ORDER BY A.timestamp DESC";
 			$com_result = mysql_query($comments_query);
 			while($row = mysql_fetch_assoc($com_result)) {
-				// echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br><br>';
 				echo '<div class="card m-2" style="">
 					  	<div class="card-body">
 							<h5 class="card-title">'.$row['username'].'</h5>
