@@ -104,8 +104,13 @@
 			}
 
 			if (!isset($_SESSION['loggedin'])){
-					echo '<a href="./">Zaloguj się by grać</a>
-					</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
+					echo '
+					<div class="card">
+					<div class="card-body">
+						<a href="./">Zaloguj się by grać</a>
+						</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a>
+					</div>
+					</div>
 					';
 			}
 			?>
@@ -218,8 +223,12 @@
 
 				if (!isset($_SESSION['loggedin'])){
 						echo '<h3>Komentarze</h3>
-						<a href="./">Zaloguj się by dodać komentarz</a>
-						</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br>';
+						<div class="card">
+						<div class="card-body">
+							<a href="./">Zaloguj się by dodać komentarz</a>
+							</br><a href="./register.php">Nie masz konta? Zarejestruj się!</a><br>
+						</div>
+						</div>';
 				}
 
 			$comments_query = "SELECT A.timestamp, A.text, B.login as username
