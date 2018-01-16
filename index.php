@@ -89,7 +89,7 @@
 						echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
 					}
 
-					echo '<a class="list-group-item list-group-item-action" href="?logout=1">Wyloguj się</a>
+					echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
 					</div></div>';
 
 					echo '

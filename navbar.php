@@ -40,7 +40,7 @@ if(isset($_SESSION['loggedin'])) {
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="./profile.php?id='.$uid.'">Zobacz profil</a>
                             <a class="dropdown-item" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
-                            <a class="dropdown-item" href="./index.php?logout=1">Wyloguj się</a>
+                            <a class="dropdown-item" href="./?logout=1">Wyloguj się</a>
                         </div>
                     </li>';
                 }

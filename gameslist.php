@@ -19,45 +19,98 @@
 
 		<?php include "navbar.php"; ?>
 
-		<div class="container-fluid col-md-8 main">
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="logo"></div>
 
-			<?php
+					<?php
 
-			function average($id) {
-				$avg_result = mysql_query("SELECT AVG(`rating`) as `avg` FROM `ratings` WHERE `game_id` = ".$id.";");
-				if($row = mysql_fetch_assoc($avg_result)) {
-					return round($row['avg'], 1);
+					if(isset($_SESSION['loggedin'])) {
+						if ($_SESSION['loggedin']) {
+							echo '
+							<div class="list-group">
+								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action active" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+
+							if($_SESSION['group_id'] == 1) {
+								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+							}
+
+							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							</div></div>';
+						}
+					}
+					else {
+						echo '
+						<div class="list-group">
+							<a class="list-group-item list-group-item-action active" href="./">Strona główna</a>
+							<a class="list-group-item list-group-item-action" href="./register.php">Rejestracja</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+							<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+							<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+							<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>
+						</div>
+					</div>';
+					}
+
+				function average($id) {
+					$avg_result = mysql_query("SELECT AVG(`rating`) as `avg` FROM `ratings` WHERE `game_id` = ".$id.";");
+					if($row = mysql_fetch_assoc($avg_result)) {
+						return round($row['avg'], 1);
+					}
+					else return "0";
 				}
-				else return "0";
-			}
 
-			$games_select_result = mysql_query("SELECT * FROM games;");
-			?>
-
-			<h1>Lista gier</h1>
-			<ul>
-				<?php
-				while($row = mysql_fetch_assoc($games_select_result)) {
-					echo '<li><a href="game.php?id='.$row['id'].'">'.$row['name'].'</a> ocena użytkowników: '.average($row['id']).'</li>';
-				}
+				$games_select_result = mysql_query("SELECT * FROM games;");
 				?>
-			</ul>
 
+				<div class="col-md-9">
+					<h1>Lista gier</h1><br>
+						<?php
+						while($row = mysql_fetch_assoc($games_select_result)) {
+							echo '
+							<div class="card mb-3">
+							  	<img class="card-img-top" src="'.$row['image1'].'" alt="Card image cap">
+							  	<div class="card-body">
+							    	<h5 class="card-title">'.$row['name'].'</h5>
+							    	<p class="card-text">'.$row['description'].'</p>
+							    	<p class="card-text"><small class="text-muted">ocena użytkowników: '.average($row['id']).'</small></p>
+							  	</div>
+							  	<div class="card-footer">
+  									<a href="game.php?id='.$row['id'].'" class="btn btn-primary">Przejdź</a>
+  								</div>
+							</div>
+							';
+						}
+						?>
 
-			<h2 id="popularity">Najpopularniejsze gry:</h2>
-			<?php
-			$popularity_query = "SELECT name, play_count
-									FROM games
-									ORDER BY play_count DESC limit 3;";
-			$popularity_result = mysql_query($popularity_query);
-			echo '<ol type="1">';
-			while($row = mysql_fetch_assoc($popularity_result)) {
-				echo '<li>'.$row['name'].' -- grana '.$row['play_count'].' razy</li>';
-			}
-			echo '</ol>'
+					<br>
+					<h2 id="popularity">Najpopularniejsze gry:</h2>
+					<br>
+					<?php
+					$popularity_query = "SELECT name, play_count
+											FROM games
+											ORDER BY play_count DESC limit 3;";
+					$popularity_result = mysql_query($popularity_query);
+					echo '<ul class="list-group">';
+					while($row = mysql_fetch_assoc($popularity_result)) {
+						echo '
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+							    '.$row['name'].'
+							    <span class="badge badge-primary badge-pill">'.$row['play_count'].' odsłon</span>
+						  	</li>';
+					}
+					echo '</ul>';
 
-			?>
-
+					?>
+				</div>
+			</div>
     	</div>
 
 		<?php include './footer.html'; ?>
