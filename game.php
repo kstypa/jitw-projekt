@@ -65,21 +65,26 @@
 						}
 					}
 
-					echo '<h2>Możesz grać!</h2>';
 					echo '
 	                    <div class="embed-responsive embed-responsive-16by9">
 	                        <iframe id="ifr" class="embed-responsive-item gameframe" src="'.$path.'" ></iframe>
 	                    </div>';
-					echo '
-						<form action="game.php?id='.$gid.'" method="post">
-							<input type="text" name="score" id="score" style="">
-							<button class="btn btn-primary" type="submit" name="submit_score">Zapisz wynik</button>
-						</form>';
 
 					$score_select_query = "SELECT * FROM `scores` WHERE `game_id` = ".$gid." AND `user_id` = ".$uid." limit 1;";
 					$score_select_result = mysql_query($score_select_query);
 					$row = mysql_fetch_assoc($score_select_result);
-					echo '<br>Twój najlepszy zapisany wynik: '.$row['score'];
+
+					echo '<br>
+						<form action="game.php?id='.$gid.'" method="post">
+							<input type="text" name="score" id="score" style="display:none;">
+							<button class="btn btn-primary" type="submit" name="submit_score">Zapisz wynik</button>
+							<button type="button" class="btn btn-secondary" disabled>
+								Twój najlepszy zapisany wynik: '.$row['score'].'
+							</button>
+						</form>';
+
+
+					echo '<br>';
 				}
 			}
 
@@ -113,24 +118,31 @@
 
 					echo '<h3>Oceń grę</h3>
 							<form action="game.php?id='.$gid.'" method="post">
-								<div class="btn-group" role="group">
+								<div class="btn-group mr-1" role="group">
 										<button type="submit" name="rating" value=1 class="btn btn-primary">1</button>
 										<button type="submit" name="rating" value=2 class="btn btn-primary">2</button>
 										<button type="submit" name="rating" value=3 class="btn btn-primary">3</button>
 										<button type="submit" name="rating" value=4 class="btn btn-primary">4</button>
 										<button type="submit" name="rating" value=5 class="btn btn-primary">5</button>
-								</div>
-							</form>
-							<br>';
+								</div>';
 
 					$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = ".$gid." AND `user_id` = ".$uid." limit 1;";
 					$rating_select_result = mysql_query($rating_select_query);
 					if ($row = mysql_fetch_assoc($rating_select_result)) {
-						echo 'Twoja obecna ocena: '.$row['rating'];
+						echo '<button type="button" class="btn btn-secondary" disabled>
+								Twoja obecna ocena: '.$row['rating'].'
+							</button>';
 					}
 					else {
-						echo 'Nie oceniłeś jeszcze tej gry';
+						echo '<button type="button" class="btn btn-secondary" disabled>
+								Nie oceniłeś jeszcze tej gry
+							</button>';
 					}
+
+					echo'</form><br>';
+
+
+
 
 					if(isset($_POST['delete_favorite'])) {
 						$delete_favorite_query = "DELETE FROM `favorites`
@@ -203,7 +215,14 @@
 			                  ORDER BY A.timestamp DESC";
 			$com_result = mysql_query($comments_query);
 			while($row = mysql_fetch_assoc($com_result)) {
-			echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br><br>';
+				// echo $row['username'].'<br>'.$row['timestamp'].'<br>'.$row['text'].'<br><br>';
+				echo '<div class="card m-2" style="">
+					  	<div class="card-body">
+							<h5 class="card-title">'.$row['username'].'</h5>
+							<h6 class="card-subtitle mb-1 text-muted">'.$row['timestamp'].'</h6>
+						  	<p class="card-text">'.$row['text'].'</p>
+					  	</div>
+					</div>';
 			}
 
 			?>
