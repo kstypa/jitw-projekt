@@ -60,11 +60,13 @@
 		include "navbar.php";
 		?>
 
-		<div class="container-fluid col-md-8 main">
+		<div class="container col-md-8 px-4 main">
+			<div class="row">
+				<div class="col-md-3">
+				<div class="logo"></div>
+
+
 			<?php
-
-
-
 			if(isset($_SESSION['loggedin'])) {
 				if ($_SESSION['loggedin'])
 				{
@@ -74,11 +76,28 @@
 					$login = $_SESSION['login'];
 
 					echo '
-					<h1>Witaj, '.$_SESSION['login'].'!</h1>
-					<br>';
+					<div class="list-group">
+						<a class="list-group-item list-group-item-action active" href="./">Strona główna</a>
+						<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
+						<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
+						<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
+						<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
+						<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+						<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+
+					if($_SESSION['group_id'] == 1) {
+						echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+					}
+
+					echo '<a class="list-group-item list-group-item-action" href="?logout=1">Wyloguj się</a>
+					</div></div>';
 
 					echo '
-					<h3>Zagraj w swoje ulubione gry:</h3>';
+					<div class="col-md-9">
+
+					<h1>Witaj, '.$_SESSION['login'].'!</h1>
+					<br>
+					<h4>Zagraj w swoje ulubione gry:</h4>';
 					$fav_select_query = "SELECT A.game_id, B.thumbnail, B.description, B.name as game
                                                 FROM favorites A
                                                 JOIN games B
@@ -87,10 +106,10 @@
                                                 ORDER BY B.id ASC";
                     $fav_select_result = mysql_query($fav_select_query);
 					$favcounter = 0;
-					echo '<br><div class="card-deck" style="height:18rem">';
+					echo '<br><div class="row">';
                     while($row = mysql_fetch_assoc($fav_select_result)) {
 						echo '
-						<div class="card">
+						<div class="card mx-1" style="width:15rem">
 							<img class="card-img-top" src="'.$row['thumbnail'].'" alt="Game thumbnail">
 							<div class="card-body">
 								<h4 class="card-title">'.$row['game'].'</h4>
@@ -107,23 +126,27 @@
 					if($favcounter == 0) {
 						echo 'Nie masz żadnych ulubionych gier! Dodaj jakieś klikając przycisk na stronie gry!';
 					}
-					echo '<br><br>';
+					?>
+					<br>
+					<h3>Zapraszamy do zabawy!</h3>
+					<p class="text-justify">Nasza strona oferuje rozrywkę, jakiej szukałeś! Zagraj za darmo w świetne gry online takie, jak Snake, Tetris czy Arkanoid!
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut quam et tellus gravida maximus. Sed vitae vulputate eros, non rutrum ex.
+						Phasellus iaculis vehicula turpis quis posuere. Quisque non cursus enim. Aenean lobortis ornare pellentesque.
+						Proin ullamcorper purus id est efficitur convallis. Proin interdum laoreet augue, ut placerat est pharetra a.
+						In eleifend nulla sit amet urna maximus pharetra. Curabitur iaculis augue nec gravida scelerisque.
+						Integer mattis augue ut justo gravida fermentum. Phasellus in dolor nibh.</p>
+					<p class="text-justify">
+						Donec sed magna turpis. Etiam finibus congue tortor ut rhoncus. Aenean egestas felis purus, eget mollis ex sodales ac.
+						Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+						Nullam a erat sagittis, scelerisque tellus eu, cursus orci. Fusce non sollicitudin diam, eget rhoncus est.
+						Donec mollis vulputate ligula vitae congue. Sed rhoncus magna eget condimentum pharetra. Fusce dapibus massa quam,
+						nec congue ipsum efficitur et. Mauris porta eros non nisl iaculis vulputate. Ut mi arcu, finibus vel mollis eu,
+						placerat a metus. Suspendisse potenti. Proin tincidunt nisi et ex sollicitudin, ac tempus diam eleifend.
+						Praesent viverra malesuada ornare. Pellentesque et velit lectus.</p>
 
-					echo '
-					<ul>
-						<li><a href="./gameslist.php">Lista gier</a></li>
-						<li><a href="./highscores.php">Najlepsi gracze</a></li>
-						<li><a href="./gameslist.php#popularity">Ranking popularności gier</a></li>
-						<li><a href="./profile.php?id='.$uid.'">Profil</a></li>
-						<li><a href="./profile.php?id='.$uid.'#friends">Znajomi</a></li>
-						<li><a href="./userslist.php">Lista użytkowników</a></li>
-					</ul><br>';
 
-					if($_SESSION['group_id'] == 1) {
-						echo '<a href="./admin.php">Panel administracyjny</a><br>';
-					}
-
-					echo '<a class="btn btn-primary" href="?logout=1">Wyloguj się</a><br>';
+					</div>
+					<?php
 				}
 			}
 
@@ -155,6 +178,7 @@
 					';
 			}
 			?>
+			</div>
 		</div>
 
 		<?php include './footer.html'; ?>

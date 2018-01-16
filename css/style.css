@@ -9,10 +9,18 @@ body {
 
 .main {
     padding-top: 10px;
-    background-color: #F0F0F0;
+    background-color: #EDEDED;
     padding-bottom: 15px;
     /*margin-bottom: 3em;*/
     min-height: 100%;
+}
+
+.logo {
+    background-image: url(../img/logo.png);
+    background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+    height: 10rem;
 }
 
 canvas {
@@ -31,7 +39,7 @@ canvas {
 
 .footer {
     text-align: center;
-    background-color: #AABBFF!important;
+    background-color: #F7F7F7!important;
     padding: 10px;
     border-top: 1px solid #007BFF;
     border-bottom: 1px solid #007BFF;
