@@ -31,15 +31,16 @@
 				else return "0";
 			}
 
+			$games_select_result = mysql_query("SELECT * FROM games;");
 			?>
 
 			<h1>Lista gier</h1>
 			<ul>
-				<li><a href="snake.php">Snake</a> ocena użytkowników: <?php echo average(1); ?></li>
-				<li><a href="">Wisielec</a> ocena użytkowników: <?php echo average(2); ?></li>
-				<li><a href="">Space Invaders</a> ocena użytkowników: <?php echo average(3); ?></li>
-				<li><a href="">Arkanoid</a> ocena użytkowników: <?php echo average(4); ?></li>
-				<li><a href="game.php?id=5">Tetris</a> ocena użytkowników: <?php echo average(5); ?></li>
+				<?php
+				while($row = mysql_fetch_assoc($games_select_result)) {
+					echo '<li><a href="game.php?id='.$row['id'].'">'.$row['name'].'</a> ocena użytkowników: '.average($row['id']).'</li>';
+				}
+				?>
 			</ul>
 
 

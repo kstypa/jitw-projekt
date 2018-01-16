@@ -79,7 +79,7 @@
 
 					echo '
 					<h3>Zagraj w swoje ulubione gry:</h3>';
-					$fav_select_query = "SELECT A.game_id, B.url, B.thumbnail, B.description, B.name as game
+					$fav_select_query = "SELECT A.game_id, B.thumbnail, B.description, B.name as game
                                                 FROM favorites A
                                                 JOIN games B
                                                 ON B.id = A.game_id

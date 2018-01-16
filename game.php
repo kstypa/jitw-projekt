@@ -10,7 +10,6 @@
 		while($row = mysql_fetch_assoc($gidcheck)){
 			$gid = $_GET['id'];
 			$game = $row['name'];
-			$url = $row['url'];
 			$path = $row['path'];
 			$gidcounter++;
 		}
@@ -68,12 +67,12 @@
 
 					echo '<h2>Możesz grać!</h2>';
 					echo '
-	                    <div class="embed-responsive embed-responsive-4by3">
+	                    <div class="embed-responsive embed-responsive-16by9">
 	                        <iframe id="ifr" class="embed-responsive-item gameframe" src="'.$path.'" ></iframe>
 	                    </div>';
 					echo '
 						<form action="game.php?id='.$gid.'" method="post">
-							<input type="text" name="score" id="score" style="display:none;">
+							<input type="text" name="score" id="score" style="">
 							<button class="btn btn-primary" type="submit" name="submit_score">Zapisz wynik</button>
 						</form>';
 
