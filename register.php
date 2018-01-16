@@ -26,8 +26,8 @@ if (isset($_POST['signup']))
   {
       if ($password1 == $password2)
       {
-          mysql_query("INSERT INTO `users` (`login`, `password`, `email`, `registered`, `last_login`, `ip`)
-              VALUES ('".$logininput."', '".md5($password1)."', '".$email."', '".time()."', '".time()."', '".$ip."');");
+          mysql_query("INSERT INTO `users` (`login`, `password`, `email`, `registered`, `last_login`, `ip`, `style`)
+              VALUES ('".$logininput."', '".md5($password1)."', '".$email."', '".time()."', '".time()."', '".$ip."', 0);");
 
           echo "Konto zostało utworzone!";
           redirect('./');

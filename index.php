@@ -1,5 +1,20 @@
 <?php
 	require_once "session.php";
+
+	if(isset($_SESSION['loggedin'])) {
+		if ($_SESSION['loggedin']) {
+			if(isset($_GET['changestyle'])) {
+				if($_GET['changestyle'] == "1") {
+					if($style == 1) {
+						mysql_query("UPDATE users SET style = 0 WHERE id = ".$uid.";");
+					}
+					else {
+						mysql_query("UPDATE users SET style = 1 WHERE id = ".$uid.";");
+					}
+				}
+			}
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +27,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="./css/style.css">
+		<?php
+		if($style == 1) {
+			echo '<link rel="stylesheet" href="./css/style-dark.css">';
+		}
+		else {
+			echo '<link rel="stylesheet" href="./css/style.css">';
+		}
+		?>
 	</head>
 
 	<body>
@@ -70,26 +92,27 @@
 			if(isset($_SESSION['loggedin'])) {
 				if ($_SESSION['loggedin'])
 				{
-					$user_result = mysql_query("SELECT `id` from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
+					$user_result = mysql_query("SELECT * from `users` WHERE `login` = '".$_SESSION['login']."' limit 1");
 			        $user_id = mysql_fetch_assoc($user_result);
 					$uid = $user_id['id'];
 					$login = $_SESSION['login'];
+					$style = $user_id['style'];
 
 					echo '
 					<div class="list-group">
-						<a class="list-group-item list-group-item-action active" href="./">Strona główna</a>
-						<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
-						<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
-						<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
-						<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
-						<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
-						<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+						<a class="list-group-item list-group-item-action '.$listcolor.' active" href="./">Strona główna</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./gameslist.php">Lista gier</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./highscores.php">Najlepsi gracze</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./gameslist.php#popularity">Ranking popularności gier</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'">Profil</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+						<a class="list-group-item list-group-item-action '.$listcolor.'" href="./userslist.php">Lista użytkowników</a>';
 
 					if($_SESSION['group_id'] == 1) {
-						echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+						echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./admin.php">Panel administracyjny</a>';
 					}
 
-					echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+					echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./?logout=1">Wyloguj się</a>
 					</div></div>';
 
 					echo '
@@ -109,7 +132,7 @@
 					echo '<br><div class="row">';
                     while($row = mysql_fetch_assoc($fav_select_result)) {
 						echo '
-						<div class="card mx-1" style="width:15rem">
+						<div class="card mx-1 '.$cardcolor.'" style="width:15rem">
 							<img class="card-img-top" src="'.$row['thumbnail'].'" alt="Game thumbnail">
 							<div class="card-body">
 								<h4 class="card-title">'.$row['game'].'</h4>
@@ -117,7 +140,7 @@
 
 							</div>
 							<div class="card-footer">
-								<a href="game.php?id='.$row['game_id'].'" class="btn btn-primary">Przejdź</a>
+								<a href="game.php?id='.$row['game_id'].'" class="btn '.$btncolor.'">Przejdź</a>
 							</div>
 						</div>';
 						$favcounter++;

@@ -12,7 +12,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="./css/style.css">
+		<?php
+		if($style == 1) {
+			echo '<link rel="stylesheet" href="./css/style-dark.css">';
+		}
+		else {
+			echo '<link rel="stylesheet" href="./css/style.css">';
+		}
+		?>
 	</head>
 
 	<body>
@@ -42,19 +49,19 @@
 						if ($_SESSION['loggedin']) {
 							echo '
 							<div class="list-group">
-								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
-								<a class="list-group-item list-group-item-action" href="./gameslist.php">Lista gier</a>
-								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
-								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
-								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
-								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
-								<a class="list-group-item list-group-item-action active" href="./userslist.php">Lista użytkowników</a>';
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.' active" href="./userslist.php">Lista użytkowników</a>';
 
 							if($_SESSION['group_id'] == 1) {
-								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+								echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./admin.php">Panel administracyjny</a>';
 							}
 
-							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./?logout=1">Wyloguj się</a>
 							</div></div>';
 						}
 					}
@@ -80,7 +87,7 @@
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" name="username" placeholder="Szukaj użytkowników">
 								<div class="input-group-btn">
-									<button type="submit" class="btn btn-primary" name="action" value="search">Szukaj</button>
+									<button type="submit" class="btn <?php echo $btncolor ?>" name="action" value="search">Szukaj</button>
 								</div>
 							</div>
 						</form>
@@ -92,7 +99,7 @@
 
 						echo '<div class="list-group">';
 						while($row = mysql_fetch_assoc($userslist_select_result)) {
-							echo '<a class="list-group-item list-group-item-action" href="profile.php?id='.$row['id'].'">'.$row['login'].'</a>';
+							echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="profile.php?id='.$row['id'].'">'.$row['login'].'</a>';
 						}
 						echo '</div>';
 

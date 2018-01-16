@@ -29,7 +29,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="./css/style.css">
+		<?php
+		if($style == 1) {
+			echo '<link rel="stylesheet" href="./css/style-dark.css">';
+		}
+		else {
+			echo '<link rel="stylesheet" href="./css/style.css">';
+		}
+		?>
 	</head>
 
 	<body>
@@ -77,7 +84,7 @@
 					echo '<br>
 						<form action="game.php?id='.$gid.'" method="post">
 							<input type="text" name="score" id="score" style="display:none;">
-							<button class="btn btn-primary" type="submit" name="submit_score">Zapisz wynik</button>
+							<button class="btn '.$btncolor.'" type="submit" name="submit_score">Zapisz wynik</button>
 							<button type="button" class="btn btn-secondary" disabled>
 								Twój najlepszy zapisany wynik: '.$row['score'].'
 							</button>
@@ -119,11 +126,11 @@
 					echo '<h3>Oceń grę</h3>
 							<form action="game.php?id='.$gid.'" method="post">
 								<div class="btn-group mr-1" role="group">
-										<button type="submit" name="rating" value=1 class="btn btn-primary">1</button>
-										<button type="submit" name="rating" value=2 class="btn btn-primary">2</button>
-										<button type="submit" name="rating" value=3 class="btn btn-primary">3</button>
-										<button type="submit" name="rating" value=4 class="btn btn-primary">4</button>
-										<button type="submit" name="rating" value=5 class="btn btn-primary">5</button>
+										<button type="submit" name="rating" value=1 class="btn '.$btncolor.'">1</button>
+										<button type="submit" name="rating" value=2 class="btn '.$btncolor.'">2</button>
+										<button type="submit" name="rating" value=3 class="btn '.$btncolor.'">3</button>
+										<button type="submit" name="rating" value=4 class="btn '.$btncolor.'">4</button>
+										<button type="submit" name="rating" value=5 class="btn '.$btncolor.'">5</button>
 								</div>';
 
 					$rating_select_query = "SELECT * FROM `ratings` WHERE `game_id` = ".$gid." AND `user_id` = ".$uid." limit 1;";
@@ -161,13 +168,13 @@
 					if($row = mysql_fetch_assoc($fav_select_result)) {
 						echo '
 							<form action="game.php?id='.$gid.'" method="post">
-								<button class="btn btn-primary" type="submit" name="delete_favorite">Usuń z ulubionych</button>
+								<button class="btn '.$btncolor.'" type="submit" name="delete_favorite">Usuń z ulubionych</button>
 							</form>';
 					}
 					else {
 						echo '
 							<form action="game.php?id='.$gid.'" method="post">
-								<button class="btn btn-primary" type="submit" name="add_favorite">Dodaj do ulubionych</button>
+								<button class="btn '.$btncolor.'" type="submit" name="add_favorite">Dodaj do ulubionych</button>
 							</form>';
 					}
 				}
@@ -185,7 +192,7 @@
 
 						echo '
 						<h3>Komentarze<span class="badge">
-							<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
+							<button class="btn '.$btncolor.'" type="button" data-toggle="collapse" data-target="#commentForm" aria-expanded="false" aria-controls="collapseExample">
 								Dodaj komentarz
 							</button>
 						</span></h3>
@@ -194,7 +201,7 @@
 								<div class="form-group">
 									<textarea class="form-control" name="comment_text" rows="5" cols="80" placeholder="Treść komentarza"></textarea>
 								</div>
-								<button type="submit" class="btn btn-primary" name="send_comment">Wyślij</button>
+								<button type="submit" class="btn '.$btncolor.'" name="send_comment">Wyślij</button>
 						</form><br>
 						</div>';
 
@@ -215,7 +222,7 @@
 			                  ORDER BY A.timestamp DESC";
 			$com_result = mysql_query($comments_query);
 			while($row = mysql_fetch_assoc($com_result)) {
-				echo '<div class="card m-2" style="">
+				echo '<div class="card '.$cardcolor.' m-2" style="">
 					  	<div class="card-body">
 							<h5 class="card-title">'.$row['username'].'</h5>
 							<h6 class="card-subtitle mb-1 text-muted">'.$row['timestamp'].'</h6>

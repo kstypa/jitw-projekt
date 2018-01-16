@@ -12,7 +12,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="./css/style.css">
+		<?php
+		if($style == 1) {
+			echo '<link rel="stylesheet" href="./css/style-dark.css">';
+		}
+		else {
+			echo '<link rel="stylesheet" href="./css/style.css">';
+		}
+		?>
 	</head>
 
 	<body>
@@ -30,19 +37,19 @@
 						if ($_SESSION['loggedin']) {
 							echo '
 							<div class="list-group">
-								<a class="list-group-item list-group-item-action" href="./">Strona główna</a>
-								<a class="list-group-item list-group-item-action active" href="./gameslist.php">Lista gier</a>
-								<a class="list-group-item list-group-item-action" href="./highscores.php">Najlepsi gracze</a>
-								<a class="list-group-item list-group-item-action" href="./gameslist.php#popularity">Ranking popularności gier</a>
-								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'">Profil</a>
-								<a class="list-group-item list-group-item-action" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
-								<a class="list-group-item list-group-item-action" href="./userslist.php">Lista użytkowników</a>';
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./">Strona główna</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.' active" href="./gameslist.php">Lista gier</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./highscores.php">Najlepsi gracze</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./gameslist.php#popularity">Ranking popularności gier</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'">Profil</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./profile.php?id='.$uid.'#friends">Znajomi</a>
+								<a class="list-group-item list-group-item-action '.$listcolor.'" href="./userslist.php">Lista użytkowników</a>';
 
 							if($_SESSION['group_id'] == 1) {
-								echo '<a class="list-group-item list-group-item-action" href="./admin.php">Panel administracyjny</a>';
+								echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./admin.php">Panel administracyjny</a>';
 							}
 
-							echo '<a class="list-group-item list-group-item-action" href="./?logout=1">Wyloguj się</a>
+							echo '<a class="list-group-item list-group-item-action '.$listcolor.'" href="./?logout=1">Wyloguj się</a>
 							</div></div>';
 						}
 					}
@@ -75,7 +82,7 @@
 						<?php
 						while($row = mysql_fetch_assoc($games_select_result)) {
 							echo '
-							<div class="card mb-3">
+							<div class="card '.$cardcolor.' mb-3">
 							  	<img class="card-img-top" src="'.$row['image1'].'" alt="Card image cap">
 							  	<div class="card-body">
 							    	<h5 class="card-title">'.$row['name'].'</h5>
@@ -83,7 +90,7 @@
 							    	<p class="card-text"><small class="text-muted">ocena użytkowników: '.average($row['id']).'</small></p>
 							  	</div>
 							  	<div class="card-footer">
-  									<a href="game.php?id='.$row['id'].'" class="btn btn-primary">Przejdź</a>
+  									<a href="game.php?id='.$row['id'].'" class="btn '.$btncolor.'">Przejdź</a>
   								</div>
 							</div>
 							';
@@ -101,9 +108,9 @@
 					echo '<ul class="list-group">';
 					while($row = mysql_fetch_assoc($popularity_result)) {
 						echo '
-							<li class="list-group-item d-flex justify-content-between align-items-center">
+							<li class="list-group-item '.$listcolor.' d-flex justify-content-between align-items-center">
 							    '.$row['name'].'
-							    <span class="badge badge-primary badge-pill">'.$row['play_count'].' odsłon</span>
+							    <span class="badge '.$badgecolor.' badge-pill">'.$row['play_count'].' odsłon</span>
 						  	</li>';
 					}
 					echo '</ul>';

@@ -2,17 +2,29 @@ body {
     font-size: 14px;
     line-height: 1.6;
     background-image: url(../img/bg-dark.png);
-    color: #222222;
+    color: #F7F7F7;
     height: 100%;
     min-height: 100%;
 }
 
+a {
+    color: #DC3545;
+}
+
 .main {
     padding-top: 10px;
-    background-color: #EDEDED;
+    background-color: #121212;
     padding-bottom: 15px;
     /*margin-bottom: 3em;*/
     min-height: 100%;
+}
+
+.logo {
+    background-image: url(../img/logo.png);
+    background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+    height: 10rem;
 }
 
 canvas {
@@ -31,10 +43,10 @@ canvas {
 
 .footer {
     text-align: center;
-    background-color: #AABBFF!important;
+    background-color: #343A40!important;
     padding: 10px;
-    border-top: 1px solid #007BFF;
-    border-bottom: 1px solid #007BFF;
+    border-top: 1px solid #DC3545;
+    border-bottom: 1px solid #DC3545;
     /*height: 3em;*/
     /*margin-top: -3em;*/
 }

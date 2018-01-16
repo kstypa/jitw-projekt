@@ -9,7 +9,16 @@ if(isset($_SESSION['loggedin'])) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<?php
+if($style == 1) {
+    $color = "navbar-dark bg-dark";
+}
+else {
+    $color = "navbar-light bg-light";
+}
+?>
+
+<nav class="navbar navbar-expand-lg <?php echo $color; ?>">
     <a class="navbar-brand" href="./">Gierki</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
